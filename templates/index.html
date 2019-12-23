@@ -9,10 +9,10 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 
-<body style="background-color:#d1c1a3;">
+<div style="background-color:#d6d6d6;">
   <div class="container-fluid">
-    <div class="jumbotron text-center" style="background:url(https://wallpapertag.com/wallpaper/full/6/7/e/191626-mars-wallpaper-1920x1200-retina.jpg);">
-      <h1>U.S. Housing Data</h1>
+    <div class="jumbotron text-center" >
+      <h1><strong>U.S. Housing Analysis</strong></h1>
     </div>
     <div class="container-fluid">
     <div class="row">
@@ -68,8 +68,115 @@
       
 
   </div>
-</div>
-</body>
 
+
+
+<div class="container-fluid">
+  <div class="row">
+
+  <!-- start of select year, x and y axis html -->
+  <div class="col-md-3">
+    <aside class="filters">
+      <div class="panel panel-default">
+        <div class="panel-heading">Select Year</div>
+        <div class="panel-body">
+          <select id="xAxisSelection" onchange="newYearBubble(this.value)">
+            <option value="2017">2017</option>
+            <option value="2016">2016</option>
+            <option value="2015">2015</option>
+            <option value="2014">2014</option>
+            <option value="2013">2013</option>
+            <option value="2012">2012</option>
+            <option value="2011">2011</option>
+            <option value="2010">2010</option>
+          </select> 
+        </div>
+      </div>
+    </aside>
+
+    <aside class="filters">
+      <div class="panel panel-default">
+        <div class="panel-heading">Select X Axis</div>
+        <div class="panel-body">
+          <select id="xAxisSelection" onchange="newXBubble(this.value)">
+            <option value="total_housing_units">Total Housing Units</option>
+            <option value="total_housing_units_occupied">Total Housing Units (Occupied)</option>
+            <option value="median_rooms">Median Rooms</option>
+            <option value="owner_occupied_units">Owner Occupied Units</option>
+            <option value="renter_occupied_units">Renter Occupied Units</option>
+            <option value="median_home_value">Median Home Value</option>
+            <option value="median_rent">Median Rent</option>
+            <option value="monthly_cost_with_mortgage">Monthly Cost - With Mortgage</option>
+            <option value="monthly_cost_no_mortgage">Monthly Cost - No Mortgage</option>
+            <option value="median_income">Median Income</option> 
+            <!-- <option value="population">Population</option> -->
+          </select> 
+        </div>
+      </div>
+    </aside>
+
+    <aside class="filters">
+      <div class="panel panel-default">
+        <div class="panel-heading">Select Y Axis</div>
+        <div class="panel-body">
+          <select id="yAxisSelection" onchange="newYBubble(this.value)">
+            <option value="total_housing_units">Total Housing Units</option>
+            <option value="total_housing_units_occupied">Total Housing Units (Occupied)</option>
+            <option value="median_rooms">Median Rooms</option>
+            <option value="owner_occupied_units">Owner Occupied Units</option>
+            <option value="renter_occupied_units">Renter Occupied Units</option>
+            <option value="median_home_value">Median Home Value</option>
+            <option value="median_rent">Median Rent</option>
+            <option value="monthly_cost_with_mortgage">Monthly Cost - With Mortgage</option>
+            <option value="monthly_cost_no_mortgage">Monthly Cost - No Mortgage</option>
+            <option value="median_income">Median Income</option> 
+            <!-- <option value="population">Population</option> -->   
+          </select> 
+        </div>
+      </div>
+    </aside>
+
+    <!-- State select options -->
+  <aside class="filters">
+    <div class="panel panel-default">
+      <div class="panel-heading">State Filters</div>
+      <div class="panel-body">
+        <form>
+          <div class="form-group">
+            <ul class="list-group" id="filters">
+              <li class="filter list-group-item">
+                <label for="state">Type in a State</label>
+                <input class="form-control" id="stateSelector" type="text" placeholder="Illinois">
+              </li>
+            </ul>
+          </div>
+          <button id="stateHighlight-btn" type="button" class="btn btn-primary" onclick="stateHighlight()"> Highlight State </button>
+          <button id="stateIsolate-btn" type="button" class="btn btn-primary" onclick="stateIsolate()"> Isolate State </button>
+          <hr>
+          <button id="stateAll-btn" type="button" class="btn btn-primary" onclick="stateAll()">Show All States </button>
+        </form>
+      </div>
+    </div>
+  </aside>
+  </div>
+
+
+
+
+  <!-- Inserts the bubble chart -->
+  <div class="col-md-9">
+    <div id="bubble"></div>
+  </div>
+
+
+
+
+
+
+</body>
+  <!-- <script src="https://cdn.plot.ly/plotly-1.31.2.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="{{ url_for('static', filename='js/bubbleapp.js') }}"></script>
 
 </html>
