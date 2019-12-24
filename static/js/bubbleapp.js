@@ -105,6 +105,12 @@ function buildBubble(year, x, y) {
       automargin: true,
       height: 630,
       width: 945,
+      showlegend: true,
+      legend: {
+        bgcolor: "#f2f2f2",
+        bordercolor: '#999999',
+        borderwidth: 0.5,
+      },
       title: {
         text: bubble_title,
         font: {
@@ -125,7 +131,8 @@ function buildBubble(year, x, y) {
         marker: {
           size: pop_size_list,
           sizemode: 'area'
-        }
+        },
+      name: "All Counties",
       }
     ];
 
@@ -193,6 +200,12 @@ function buildBubbleStateHighlight(year, x, y) {
       automargin: true,
       height: 630,
       width: 945,
+      showlegend: true,
+      legend: {
+        bgcolor: "#f2f2f2",
+        bordercolor: '#999999',
+        borderwidth: 0.5,
+      },
       title: {
         text: bubble_title,
         font: {
@@ -295,6 +308,12 @@ function buildBubbleStateIsolate(year, x, y) {
       automargin: true,
       height: 630,
       width: 945,
+      showlegend: true,
+      legend: {
+        bgcolor: "#f2f2f2",
+        bordercolor: '#999999',
+        borderwidth: 0.5,
+      },
       title: {
         text: bubble_title,
         font: {
