@@ -52,5 +52,38 @@ def scatter(year, x , y):
     return jsonify(jsonresults)
 
 
+@app.route("/<county>")
+def county2(county):
+    """Return a list of sample names."""
+    # Use Pandas to perform the sql querylscc
+    results = pd.read_sql(f"select geo_id,county from housing where year = 2017 and geo_id = '{county}'", db.session.bind)
+    # print(results)
+    # Return a list of the column names (sample names)
+    json1 = results.to_json(orient='records')
+    jsonfiles = json.loads(json1)
+    return jsonify(jsonfiles)
+    
+@app.route("/timeseries/<county>")
+def county3(county):
+    """Return a list of sample names."""
+    # Use Pandas to perform the sql querylscc
+    results = pd.read_sql(f"select * from housing where geo_id = '{county}' order by year", db.session.bind)
+    # print(results)
+    # Return a list of the column names (sample names)
+    json1 = results.to_json(orient='records')
+    jsonfiles = json.loads(json1)
+    return jsonify(jsonfiles)
+
+@app.route("/summarycard/<county>")
+def county4(county):
+    """Return a list of sample names."""
+    # Use Pandas to perform the sql querylscc
+    results = pd.read_sql(f"select * from housing where geo_id = '{county}' order by year", db.session.bind)
+    # print(results)
+    # Return a list of the column names (sample names)
+    json1 = results.to_json(orient='records')
+    jsonfiles = json.loads(json1)
+    return jsonify(jsonfiles)
+
 if __name__ == "__main__":
     app.run()

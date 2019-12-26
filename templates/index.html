@@ -26,11 +26,11 @@
     <br>
 
     <div class="row justify-content-center">
-      <div class="col-lg-10">
+      <div class="col-lg-9">
         <p>Map (col-lg-10)</p>
       </div>
-      <div class="col-lg-2">
-        <div align="center"></div>
+      <div class="col-lg-3">
+        <div id="summary-card"></div>
         <p>Summary Card (col-lg-2)</p>
       </div>
     </div>
@@ -42,11 +42,94 @@
       <div class="row justify-content-center">
           <div align="center">
           <br>
+
         <div class="col-lg-6">
           <p>Bubble Chart (col-lg-6)</p>
         </div>
+
         <div class="col-lg-6">
-          <p>Line Chart (col-lg-6)</p>
+          <div id="line-chart"></div>
+          <p>Line Chart  (col-lg-6)</p>
+        </div>   
+        
+        
+        <div class="col-lg-6">
+          <img src="../images/rent_cartoon.png" alt="rent">
+          <p>Place Holder1 (col-lg-6)</p>
+        </div>   
+
+        <div class="col-lg-3">
+          <aside class="filters">
+            <div class="panel panel-success">
+              <div class="panel-heading"><strong>Select variable 1</strong></div>
+              <div class="panel-body">
+                <select id="VariableOneSelection" onchange="NewVar1(this.value)">
+                  <option value="median_home_value">Median Home Value</option>
+                  <option value="total_housing_units">Total Housing Units</option>
+                  <option value="total_housing_units_occupied">Total Housing Units (Occupied)</option>
+                  <option value="median_rooms">Median Rooms</option>
+                  <option value="owner_occupied_units">Owner Occupied Units</option>
+                  <option value="renter_occupied_units">Renter Occupied Units</option>
+                  <option value="median_rent">Median Rent</option>
+                  <option value="monthly_cost_with_mortgage">Monthly Cost - With Mortgage</option>
+                  <option value="monthly_cost_no_mortgage">Monthly Cost - No Mortgage</option>
+                  <option value="median_income">Median Income</option> 
+                  <option value="population">Population</option>
+                </select> 
+              </div>
+            </div>
+          </aside>
+        </div>
+
+        <div class="col-lg-3">
+          <aside class="filters">
+            <div class="panel panel-info">
+              <div class="panel-heading"><strong>Select variable 2</strong></div>
+              <div class="panel-body">
+                <select id="VariableTwoSelection" onchange="NewVar2(this.value)">
+                  <option value="median_income">Median Income</option> 
+                  <option value="total_housing_units">Total Housing Units</option>
+                  <option value="total_housing_units_occupied">Total Housing Units (Occupied)</option>
+                  <option value="median_rooms">Median Rooms</option>
+                  <option value="owner_occupied_units">Owner Occupied Units</option>
+                  <option value="renter_occupied_units">Renter Occupied Units</option>
+                  <option value="median_home_value">Median Home Value</option>
+                  <option value="median_rent">Median Rent</option>
+                  <option value="monthly_cost_with_mortgage">Monthly Cost - With Mortgage</option>
+                  <option value="monthly_cost_no_mortgage">Monthly Cost - No Mortgage</option>
+                  <option value="population">Population</option>
+                </select> 
+              </div>
+            </div>
+          </aside>
+        </div>
+
+        <div class="col-lg-9">
+          <p>Place Holder2 (col-lg-6)</p>
+        </div> 
+
+        <div class="col-lg-3">
+          <aside class="filters">
+            <div class="panel panel-danger">
+              <div class="panel-heading"><strong>Select variable 3</strong></div>
+              <div class="panel-body">
+                <select id="VariableThreeSelection" onchange="NewVar3(this.value)">
+                  <option value="population">Population</option>
+                  <option value="total_housing_units">Total Housing Units</option>
+                  <option value="total_housing_units_occupied">Total Housing Units (Occupied)</option>
+                  <option value="median_rooms">Median Rooms</option>
+                  <option value="owner_occupied_units">Owner Occupied Units</option>
+                  <option value="renter_occupied_units">Renter Occupied Units</option>
+                  <option value="median_home_value">Median Home Value</option>
+                  <option value="median_rent">Median Rent</option>
+                  <option value="monthly_cost_with_mortgage">Monthly Cost - With Mortgage</option>
+                  <option value="monthly_cost_no_mortgage">Monthly Cost - No Mortgage</option>
+                  <option value="median_income">Median Income</option> 
+                </select> 
+              </div>
+            </div>
+          </aside>
+        </div>  
         </div>
       </div>
       </div>
@@ -158,13 +241,13 @@
       </div>
     </div>
   </aside>
-  </div>
+</div>
 
 
 
 
   <!-- Inserts the bubble chart -->
-  <div class="col-md-9">
+  <div class="col-md-5">
     <div id="bubble"></div>
   </div>
 
@@ -174,7 +257,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="{{ url_for('static', filename='js/bubbleapp.js') }}"></script>
-
+  <script src="{{ url_for('static', filename='js/timegraph.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/summary_card.js') }}"></script>
 <!-- random D3 stuff -->
   <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
