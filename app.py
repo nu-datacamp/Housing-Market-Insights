@@ -85,5 +85,18 @@ def county4(county):
     jsonfiles = json.loads(json1)
     return jsonify(jsonfiles)
 
+@app.route("/map/<variable>/<year>")
+def map_route(variable, year):
+    """Return a list of sample names."""
+    # Use Pandas to perform the sql query
+    results = pd.read_sql(f"select geo_id, {variable}, year, county from housing where year = {year}", db.session.bind)
+    results = results.set_index("geo_id")
+    json1 = results.to_json(orient='index')
+    min1 = results[f'{variable}'].min()
+    max1 = results[f'{variable}'].max()
+    jsonfiles = json.loads(json1)
+    jsonfiles['min_max'] = {'min' : min1, "max" : max1}
+    return jsonfiles
+
 if __name__ == "__main__":
     app.run()
