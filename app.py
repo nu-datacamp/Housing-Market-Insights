@@ -7,6 +7,7 @@ import json
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
+from scipy import stats
 
 from flask import Flask, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
@@ -78,7 +79,20 @@ def county3(county):
 def county4(county):
     """Return a list of sample names."""
     # Use Pandas to perform the sql querylscc
-    results = pd.read_sql(f"select * from housing where geo_id = '{county}' order by year", db.session.bind)
+    results = pd.read_sql(f"select * from housing where year = '2017'", db.session.bind)
+    results["owner_percent"] = results["owner_occupied_units"] / results["total_housing_units"]
+    results["occupied_percent"] = results["total_housing_units_occupied"] / results["total_housing_units"]
+    results["value_to_income"] = results["median_home_value"] / results["median_income"]
+    results["percentile_median_home_value"] = [stats.percentileofscore(results["median_home_value"], a) for a in results["median_home_value"]]
+    results["percentile_median_income"] = [stats.percentileofscore(results["median_income"], a) for a in results["median_income"]]
+    results["percentile_median_rent"] = [stats.percentileofscore(results["median_rent"], a) for a in results["median_rent"]]
+    results["percentile_median_rooms"] = [stats.percentileofscore(results["median_rooms"], a) for a in results["median_rooms"]]
+    results["percentile_population"] = [stats.percentileofscore(results["population"], a) for a in results["population"]]
+    results["percentile_owner_percent"] = [stats.percentileofscore(results["owner_percent"], a) for a in results["owner_percent"]]
+    results["percentile_occupied_percent"] = [stats.percentileofscore(results["occupied_percent"], a) for a in results["occupied_percent"]]
+    results["percentile_total_housing_units"] = [stats.percentileofscore(results["total_housing_units"], a) for a in results["total_housing_units"]]
+    results["percentile_valueincome"] = [stats.percentileofscore(results["value_to_income"], a) for a in results["value_to_income"]]   
+    results = results.loc[results['geo_id'] == county]
     # print(results)
     # Return a list of the column names (sample names)
     json1 = results.to_json(orient='records')
