@@ -54,12 +54,38 @@ function friendlyName(i){
 //  for initial load and which state view is desired
 //*******************************************************************************************
 
+// Reference: https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 buildTable(selected_county);
 
 // set up ChartBuilder function
 function TableBuilder(){
     buildTable(selected_county);
 };
+
+$(function() {
+  /** This code runs when everything has been loaded on the page */
+  /* Inline sparklines take their values from the contents of the tag */
+  $('.inlinesparkline').sparkline(); 
+
+  /* Sparklines can also take their values from the first argument 
+  passed to the sparkline() function */
+  var myvalues = [10,8,5,7,4,4,1];
+  $('.dynamicsparkline').sparkline(myvalues);
+
+  /* The second argument gives options such as chart type */
+  $('.test').sparkline([100,66,100,75,50,25], {
+      type: 'bullet',
+      performanceColor: '#000000',
+      rangeColors: ['#d3dafe','#a8b6ff','#7f94ff ']});
+
+  /* Use 'html' instead of an array of values to pass options 
+  to a sparkline with data in the tag */
+  $('.inlinebar').sparkline('html', {type: 'bar', barColor: 'red'} );
+});
 
 
 function buildTable(county) {
@@ -73,60 +99,167 @@ function buildTable(county) {
 //   console.log(`current selected variable 2 is ${var2}`)
 //   console.log(`current selected variable 3 is ${var3}`)
 
-  d3.json(`/${county}`).then((data) => {
-    //const median_income = data.median_income;
-    //const year = data.year;
-    //const median_home_value = data.median_home_value;
-    //const pop = data.population;
-    // Build a Bubble Chart
+  d3.json(`/summarycard/${county}`).then((data) => {
+    const median_income = "$" + numberWithCommas(data["0"].median_income);
+    const year = data["0"].year;
+    const median_home_value = "$" + numberWithCommas(data["0"].median_home_value);
+    const pop = numberWithCommas(data["0"].population);
+    const county = data["0"].county;
+    const total_housing_units = numberWithCommas(data["0"].total_housing_units);
+    const median_rent = "$" + numberWithCommas(data["0"].median_rent);
+    const median_rooms = data["0"].median_rooms
+    const owned = Math.round(data["0"].owner_percent * 100) + "%"
+    const occupied = Math.round(data["0"].occupied_percent * 100) + "%"
+    const per_pop = Math.round(data["0"].percentile_population)
+    const per_housing = Math.round(data["0"].percentile_total_housing_units)
+    const per_income = Math.round(data["0"].percentile_median_income)
+    const per_homevalue = Math.round(data["0"].percentile_median_home_value)
+    const per_rent = Math.round(data["0"].percentile_median_rent)
+    const per_rooms = Math.round(data["0"].percentile_median_rooms)
+    const per_owned = Math.round(data["0"].percentile_owner_percent)
+    const per_occupied = Math.round(data["0"].percentile_occupied_percent)
+    const value_to_income = data["0"].value_to_income.toFixed(2)
+    const per_valueincome = Math.round(data["0"].percentile_valueincome)
 
+
+
+
+    console.log(data) 
+        //Dot chart
+        
+        var attributes = [`<b>Population </b>: ${pop} `,`<b>Total Housing Units </b>: ${total_housing_units} `,`<b>Median Income </b>: ${median_income} `,`<b>Median Home Value </b>: ${median_home_value} `,`<b>Value-Income Ratio </b>: ${value_to_income} `,`<b>Median Rent </b>: ${median_rent} `,`<b>Median Rooms </b>: ${median_rooms} `,`<b>Units Owned </b>: ${owned} `,`<b>Units Occupied </b>: ${occupied} `]
+        var percentiles = [per_pop,per_housing,per_income,per_homevalue,per_valueincome,per_rent,per_rooms,per_owned,per_occupied];
+        var values = [pop, total_housing_units,median_income, median_home_value, value_to_income, median_rent, median_rooms, owned, occupied];
+
+        var trace1 = {
+          type: 'scatter',
+          x: percentiles,
+          y: attributes,
+          mode: 'markers',
+          name: 'Percentile',
+          marker: {
+            color: percentiles,
+            colorscale: [
+              ['0.0', 'rgb(165,0,38)'],
+              ['0.111111111111', 'rgb(215,48,39)'],
+              ['0.222222222222', 'rgb(244,109,67)'],
+              ['0.333333333333', 'rgb(253,174,97)'],
+              ['0.444444444444', 'rgb(254,224,144)'],
+              ['0.555555555556', 'rgb(224,243,248)'],
+              ['0.666666666667', 'rgb(171,217,233)'],
+              ['0.777777777778', 'rgb(116,173,209)'],
+              ['0.888888888889', 'rgb(69,117,180)'],
+              ['1.0', 'rgb(49,54,149)']
+            ],
+            line: {
+              color: '#000000',
+              width: 1,
+            },
+            symbol: 'circle',
+            size: 16
+          }
+        };
+
+        var trace2 = {
+          type: 'scatter',
+          x: [50,50,50,50,50,50,50,50,50],
+          y: attributes,
+          mode: 'markers',
+          hoverinfo: 'none',
+          marker: {
+            color: '#E1E1E1',
+            symbol: 'circle',
+            size: 8
+          }
+        };
     
+        
+        var data = [trace2, trace1];
+        
+        var layout = {
+          title: `<br>Overview: ${county} (${year})`,
+          showlegend: false,
+          xaxis: {
+            title: {text: "Percentile"},
+            showgrid: false,
+            zeroline: false,
+            tickvals: [0,50,100],
+            range: [-4,105],
+            linecolor: 'rgb(102, 102, 102)',
+            titlefont: {
+              font: {
+                color: 'rgb(204, 204, 204)'
+              }
+            },
+            tickfont: {
+              font: {
+                color: 'rgb(102, 102, 102)'
+              }
+            },
+            ticks: 'outside',
+            tickcolor: 'rgb(102, 102, 102)'
+          },
+          yaxis: {
+            autorange: "reversed",
+            linecolor: 'white',
+            gridwidth: 3,
+            gridcolor: '#E1E1E1',
+          },
+          margin: {
+            l: 220,
+            r: 40,
+            b: 90,
+            t: 110
+          },
+          width: 450,
+          height: 550,
+          hovermode: 'closest'
+        };
+        
+        Plotly.newPlot('summary-card', data, layout);
 
-    // var data = [trace1, trace2, trace3];
-    console.log(data)
-    console.log(data.median_home_value)
-    var values = [
-        ['Median Home Value', 'Median Income', 'Population', "Total Housing Units", "Median Rent", "Another Variable"],
-        ['placeholder1', 'placeholder2', 'placeholder3','placeholder4','placeholder5', "placeholder6"]]
+
+
+        // Basic data table
+//     var table_values = [
+//         ['<b>Population</b>',"<b>Total Housing Units</b>",'<b>Median Income</b>','<b>Median Home Value</b>','<b>Value-Income Ratio</b>',"<b>Median Rent</b>","<b>Median Rooms</b>","<b>Units Owned</b>","<b>Units Occupied</b>"],
+//         [pop, total_housing_units,median_income, median_home_value, value_to_income, median_rent, median_rooms, owned, occupied],
+//         [per_pop,per_housing,per_income,per_homevalue,per_valueincome,per_rent,per_rooms,per_owned,per_occupied]]
   
-    var data = [{
-    type: 'table',
-    header: {
-        values: [["<b>Some Text</b>"], 
-                    ["<b>Year or some other text</b>"]],
-        align: ["left", "center"],
-        line: {width: 1, color: 'black'},
-        fill: {color: 'gray'},
-        font: {family: "Arial", size: 18, color: "white"}
-    },
-    cells: {
-        values: values,
-        align: ["left", "center"],
-        height:25,
-        line: {color: "black", width: 1},
-        //fill: {color: ['black', 'white']},
-        font: {family: "Arial", size: 12, color: ["#506784"]}
-    }
+    
+//     var data = [{
+//     type: 'table',
+//     header: {
+//         values: [["<b>Attribute</b>"],   
+//                     ["<b>Value</b>"],   
+//                     ["<b>Percentile</b>"]],
+//         align: ["left", "center"],
+//         line: {width: 0.25, color: 'black'},
+//         fill: {color: 'gray'},
+//         font: {family: "Arial", size: 18, color: "white"}
+//     },
+//     cells: {
+//         values: table_values,
+//         align: ["left", "center"],
+//         height:25,
+//         line: {color: "black", width: 0.25},
+//         font: {family: "Arial", size: 12, color: ["#506784"]}
+//     }
 
-    }]
+//     }]
 
-var layout = {
-    title: "Some Table Name",
-    margin: {
-        // l:0,
-        // r:0,
-        // b:0,
-        // t:0,
-        // pad:0,
-        l: 10,
-        r: 10,
-        b: 50,
-        t: 50,
-        pad: 1
-      },
-    }  
+// var layout = {
+//     title: `Overview: ${county} (${year})`,
+//     margin: {
+//         l: 10,
+//         r: 10,
+//         b: 50,
+//         t: 50,
+//         pad: 1
+//       },
+//     }  
   
-  Plotly.plot('summary-card', data, layout);
+//   Plotly.plot('summary-card', data, layout);
   });
   
   
