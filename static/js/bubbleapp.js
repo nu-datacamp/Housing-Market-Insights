@@ -3,11 +3,16 @@
 //  starts at these values, as user changes selections they will update
 //*******************************************************************************************
 
-selectedYear = 2017;
-selected_xAxis = "median_home_value";
-selected_yAxis = "median_income";
-stateView = "all"
-selectedState = "Illinois"
+var selectedYear = 2017;
+var selected_xAxis = "median_home_value";
+var selected_yAxis = "median_income";
+var stateView = "all"
+var selectedState = "Illinois"
+var selectedCounty = "Cook County_Illinois"
+
+// value to enable year time series view of bubble chart
+var loopThroughYear = false
+
 
 
 //*******************************************************************************************
@@ -34,6 +39,9 @@ function friendlyName(i){
   else if (i == "median_home_value") {
     return  "Median Home Value";
   }
+  else if (i == "median_home_sales_zillow") {
+    return  "Median Home Sales Price";
+  }
   else if (i == "median_rent") {
     return  "Median Rent";
   }
@@ -48,13 +56,35 @@ function friendlyName(i){
   }
 }
 
+
+
+//*******************************************************************************************
+//  COUNTY_STATE CONVERTER
+//  Converts from format "Cook County, Illinois" to "Cook County_Illinois" as an example
+//*******************************************************************************************
+function stateCountyConvert(i){
+  county_state = i.replace(", ", "_");
+  return county_state
+}
+
+
+// sleep function for running the play through time view of the bubble chart
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
+
 //*******************************************************************************************
 //  BUILD BUBBLE CHARTS FUNCTION
 //  for initial load and which state view is desired
 //*******************************************************************************************
 
 // Build bubble chart when page loads
-buildBubble(selectedYear, selected_xAxis, selected_yAxis)
+whichBubbleBuilder(selectedYear, selected_xAxis, selected_yAxis);
 
 // Directs updated bubblechart to the appropriate function (all, highlight, isolate versions)
 function whichBubbleBuilder(){
@@ -69,10 +99,12 @@ function whichBubbleBuilder(){
   }
 }
 
+
 //*******************************************************************************************
 //  ALL STATES BUBBLE CHART
 //  for initial load and changes from user
 //*******************************************************************************************
+
 
 // Builds the bubble chart
 function buildBubble(year, x, y) {
@@ -99,8 +131,30 @@ function buildBubble(year, x, y) {
     var y_axis_title = friendlyName(selected_yAxis);
     var bubble_title = selectedYear + " " + x_axis_title + " vs. " + y_axis_title;
 
+    // set axis ranges to constant value if running the loop through year view
+    if (loopThroughYear === false){
+      max_x_axis = (Math.max(... x_axis_list)) * 1.10;
+      max_y_axis = (Math.max(... y_axis_list)) * 1.10;
+      min_x_axis = (Math.min(... x_axis_list)) * .9;
+      min_y_axis = (Math.min(... y_axis_list)) * .9;
+    };
+
     // Build a Bubble Chart
-    var bubbleLayout = {
+    var myBubblePlot = document.getElementById('bubble'),
+    data = [
+      {
+        x: x_axis_list,
+        y: y_axis_list,
+        text: county_labels_list,
+        mode: "markers",
+        marker: {
+          size: pop_size_list,
+          sizemode: 'area'
+        },
+      name: "All Counties",
+      }
+    ];
+    layout = {
       hovermode: "closest",
       automargin: true,
       height: 630,
@@ -118,25 +172,43 @@ function buildBubble(year, x, y) {
           size: 18
           }
         },
-      xaxis: { title: x_axis_title },
-      yaxis: { title: y_axis_title }
+      xaxis: { 
+        title: x_axis_title,
+        zeroline: false,
+        range: [min_x_axis, max_x_axis]
+      },
+      yaxis: { 
+        title: y_axis_title,
+        zeroline: false,
+        range: [min_y_axis, max_y_axis]
+      },
     };
-    
-    var bubbleData = [
-      {
-        x: x_axis_list,
-        y: y_axis_list,
-        text: county_labels_list,
-        mode: "markers",
-        marker: {
-          size: pop_size_list,
-          sizemode: 'area'
-        },
-      name: "All Counties",
-      }
-    ];
 
-    Plotly.newPlot("bubble", bubbleData, bubbleLayout);
+    Plotly.newPlot('bubble', data, layout).then  // then handles the year over year view
+    if (loopThroughYear === true && selectedYear < 2017){
+      selectedYear = selectedYear + 1;
+      sleep(500);
+      whichBubbleBuilder();
+    }
+    else if (loopThroughYear === true && selectedYear === 2017){
+      sleep(500);
+      whichBubbleBuilder();
+      loopThroughYear = false
+    }
+
+    
+
+    myBubblePlot.on('plotly_click', function(data){
+        clickedCounty = data.points[0].text;
+        console.log(`${clickedCounty} was clicked`); 
+        selectedCounty = stateCountyConvert(clickedCounty);
+        console.log(`${selectedCounty} is the select county`); 
+        console.log(data)
+    });
+
+
+    console.log(myBubblePlot.layout)
+    console.log(myBubblePlot.data)
 
   });
 
@@ -146,7 +218,10 @@ function buildBubble(year, x, y) {
   console.log(`current selected year is ${selectedYear}`)
   console.log(`current selected x is ${x}`)
   console.log(`current selected y is ${y}`)
-}
+};
+    
+
+
 
 //*******************************************************************************************
 //  HIGHLIGHT STATES BUBBLE CHART
@@ -194,8 +269,17 @@ function buildBubbleStateHighlight(year, x, y) {
     var y_axis_title = friendlyName(selected_yAxis);
     var bubble_title = selectedYear + " " + x_axis_title + " vs. " + y_axis_title;
 
+    // set axis ranges to constant value if running the loop through year view
+    if (loopThroughYear === false){
+      max_x_axis = (Math.max(... x_axis_list)) * 1.10;
+      max_y_axis = (Math.max(... y_axis_list)) * 1.10;
+      min_x_axis = (Math.min(... x_axis_list)) * .9;
+      min_y_axis = (Math.min(... y_axis_list)) * .9;
+    };
+
     // Build a Bubble Chart
-    var bubbleLayout = {
+    var myBubblePlot = document.getElementById('bubble'),
+    bubbleLayout = {
       hovermode: "closest",
       automargin: true,
       height: 630,
@@ -213,11 +297,19 @@ function buildBubbleStateHighlight(year, x, y) {
           size: 18
           }
         },
-      xaxis: { title: x_axis_title },
-      yaxis: { title: y_axis_title }
-    };
+        xaxis: { 
+          title: x_axis_title,
+          zeroline: false,
+          range: [min_x_axis, max_x_axis]
+        },
+        yaxis: { 
+          title: y_axis_title,
+          zeroline: false,
+          range: [min_y_axis, max_y_axis]
+        },
+      };
     
-    var bubbleData = [
+    bubbleData = [
       {
         x: x_axis_list,
         y: y_axis_list,
@@ -244,9 +336,25 @@ function buildBubbleStateHighlight(year, x, y) {
       }
     ];
 
-    Plotly.newPlot("bubble", bubbleData, bubbleLayout);
+    Plotly.newPlot("bubble", bubbleData, bubbleLayout).then  // then handles the year over year view
+    if (loopThroughYear === true && selectedYear < 2017){
+      selectedYear = selectedYear + 1;
+      sleep(500);
+      whichBubbleBuilder();
+    }
+    else if (loopThroughYear === true && selectedYear === 2017){
+      sleep(500);
+      whichBubbleBuilder();
+      loopThroughYear = false
+    }
 
+    myBubblePlot.on('plotly_click', function(data){
+      clickedCounty = data.points[0].text;
+      console.log(`${clickedCounty} was clicked`); 
+      selectedCounty = stateCountyConvert(clickedCounty);
+      console.log(`${selectedCounty} is the select county`); 
   });
+});
 
   selectedYear = year
   selected_xAxis = x
@@ -302,8 +410,17 @@ function buildBubbleStateIsolate(year, x, y) {
     var y_axis_title = friendlyName(selected_yAxis);
     var bubble_title = selectedYear + " " + x_axis_title + " vs. " + y_axis_title;
 
+    // set axis ranges to constant value if running the loop through year view
+    if (loopThroughYear === false){
+      max_x_axis = (Math.max(... x_axis_list)) * 1.10;
+      max_y_axis = (Math.max(... y_axis_list)) * 1.10;
+      min_x_axis = (Math.min(... x_axis_list)) * .9;
+      min_y_axis = (Math.min(... y_axis_list)) * .9;
+    };
+
     // Build a Bubble Chart
-    var bubbleLayout = {
+    var myBubblePlot = document.getElementById('bubble'),
+    bubbleLayout = {
       hovermode: "closest",
       automargin: true,
       height: 630,
@@ -321,11 +438,19 @@ function buildBubbleStateIsolate(year, x, y) {
           size: 18
           }
         },
-      xaxis: { title: x_axis_title },
-      yaxis: { title: y_axis_title }
-    };
+        xaxis: { 
+          title: x_axis_title,
+          zeroline: false,
+          range: [min_x_axis, max_x_axis]
+        },
+        yaxis: { 
+          title: y_axis_title,
+          zeroline: false,
+          range: [min_y_axis, max_y_axis]
+        },
+      };
     
-    var bubbleData = [
+    bubbleData = [
       {
         x: x_axis_list_state,
         y: y_axis_list_state,
@@ -340,9 +465,25 @@ function buildBubbleStateIsolate(year, x, y) {
       }
     ];
 
-    Plotly.newPlot("bubble", bubbleData, bubbleLayout);
+    Plotly.newPlot("bubble", bubbleData, bubbleLayout).then  // then handles the year over year view
+    if (loopThroughYear === true && selectedYear < 2017){
+      selectedYear = selectedYear + 1;
+      sleep(500);
+      whichBubbleBuilder();
+    }
+    else if (loopThroughYear === true && selectedYear === 2017){
+      sleep(500);
+      whichBubbleBuilder();
+      loopThroughYear = false
+    }
 
+    myBubblePlot.on('plotly_click', function(data){
+      clickedCounty = data.points[0].text;
+      console.log(`${clickedCounty} was clicked`); 
+      selectedCounty = stateCountyConvert(clickedCounty);
+      console.log(`${selectedCounty} is the select county`); 
   });
+});
 
   selectedYear = year
   selected_xAxis = x
@@ -376,7 +517,6 @@ function newYearBubble(new_year){
 }
 
 
-
 //***********************************************************************************************
 //  HANDLES REQUESTS FOR STATES
 //  changes the state view status and rebuilds the chart for all, isolate, or highlighted states
@@ -401,5 +541,19 @@ function stateHighlight(){
 function stateAll(){
   stateView = "all"
   console.log(`State status changed to ${stateView}`);
-  whichBubbleBuilder()
+  whichBubbleBuilder()   
 }
+
+
+
+//***********************************************************************************************
+//  BUBBLE CHART OVER TIME FUNCTION
+//  runs bubble chart for each year available
+//***********************************************************************************************
+
+function bubbleOverTime(){
+  selectedYear = 2010;
+  loopThroughYear = true;
+  whichBubbleBuilder();
+  };
+
