@@ -13,6 +13,7 @@ selected_county = "0500000US17031"
 //  Converts database SQL column names to friendly syntax for users
 //*******************************************************************************************
 
+
 function friendlyName(i){
   if (i == "total_housing_units") {
     return "Total Housing Units";
@@ -66,28 +67,6 @@ function TableBuilder(){
     buildTable(selected_county);
 };
 
-$(function() {
-  /** This code runs when everything has been loaded on the page */
-  /* Inline sparklines take their values from the contents of the tag */
-  $('.inlinesparkline').sparkline(); 
-
-  /* Sparklines can also take their values from the first argument 
-  passed to the sparkline() function */
-  var myvalues = [10,8,5,7,4,4,1];
-  $('.dynamicsparkline').sparkline(myvalues);
-
-  /* The second argument gives options such as chart type */
-  $('.test').sparkline([100,66,100,75,50,25], {
-      type: 'bullet',
-      performanceColor: '#000000',
-      rangeColors: ['#d3dafe','#a8b6ff','#7f94ff ']});
-
-  /* Use 'html' instead of an array of values to pass options 
-  to a sparkline with data in the tag */
-  $('.inlinebar').sparkline('html', {type: 'bar', barColor: 'red'} );
-});
-
-
 function buildTable(county) {
 
   selected_county = county
@@ -138,19 +117,19 @@ function buildTable(county) {
           mode: 'markers',
           name: 'Percentile',
           marker: {
-            color: percentiles,
+            color: percentiles, cmin: 0, cmax: 100,
             colorscale: [
-              ['0.0', 'rgb(165,0,38)'],
-              ['0.111111111111', 'rgb(215,48,39)'],
-              ['0.222222222222', 'rgb(244,109,67)'],
-              ['0.333333333333', 'rgb(253,174,97)'],
-              ['0.444444444444', 'rgb(254,224,144)'],
-              ['0.555555555556', 'rgb(224,243,248)'],
-              ['0.666666666667', 'rgb(171,217,233)'],
-              ['0.777777777778', 'rgb(116,173,209)'],
-              ['0.888888888889', 'rgb(69,117,180)'],
-              ['1.0', 'rgb(49,54,149)']
-            ],
+              ['0.0', 'rgb(245, 54, 42)'],
+              ['0.1', 'rgb(214, 49, 39)'],
+              ['0.2', 'rgb(150, 34, 27)'],
+              ['0.3', 'rgb(102, 23, 18)'],
+              ['0.4', 'rgb(0,0,0)'],
+              ['0.5', 'rgb(0,0,0)'],
+              ['0.6', 'rgb(0,0,0)'],
+              ['0.7', 'rgb(29, 32, 89)'],
+              ['0.8', 'rgb(45, 50, 140)'],
+              ['0.9', 'rgb(62, 70, 201)'],
+              ['1.0', 'rgb(78, 88, 245)']],
             line: {
               color: '#000000',
               width: 1,
@@ -197,7 +176,7 @@ function buildTable(county) {
               }
             },
             ticks: 'outside',
-            tickcolor: 'rgb(102, 102, 102)'
+            tickcolor: 'rgb(102, 102, 102)',
           },
           yaxis: {
             autorange: "reversed",
@@ -217,6 +196,8 @@ function buildTable(county) {
         };
         
         Plotly.newPlot('summary-card', data, layout);
+
+      
 
 
 
@@ -291,3 +272,8 @@ function buildTable(county) {
 // }
 
 
+function county_select(new_county){
+  selected_county = new_county
+  console.log(`County changed to ${new_county}`)
+  buildTable(selected_county);
+}
