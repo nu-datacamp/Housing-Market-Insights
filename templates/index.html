@@ -178,6 +178,9 @@
             <option value="2011">2011</option>
             <option value="2010">2010</option>
           </select> 
+          <button id="timeAll-btn" type="button" class="btn btn-warning" onclick="bubbleOverTime()">
+            <span class="glyphicon glyphicon-play" aria-hidden="true"> </span> Play Over Time
+          </button>
         </div>
       </div>
     </aside>
@@ -192,7 +195,8 @@
             <option value="median_rooms">Median Rooms</option>
             <option value="owner_occupied_units">Owner Occupied Units</option>
             <option value="renter_occupied_units">Renter Occupied Units</option>
-            <option value="median_home_value">Median Home Value</option>
+            <option value="median_home_value" selected>Median Home Value</option>
+            <option value="median_home_sales_zillow">Median Home Sales Price</option>            
             <option value="median_rent">Median Rent</option>
             <option value="monthly_cost_with_mortgage">Monthly Cost - With Mortgage</option>
             <option value="monthly_cost_no_mortgage">Monthly Cost - No Mortgage</option>
@@ -214,10 +218,11 @@
             <option value="owner_occupied_units">Owner Occupied Units</option>
             <option value="renter_occupied_units">Renter Occupied Units</option>
             <option value="median_home_value">Median Home Value</option>
+            <option value="median_home_sales_zillow">Median Home Sales Price</option>  
             <option value="median_rent">Median Rent</option>
             <option value="monthly_cost_with_mortgage">Monthly Cost - With Mortgage</option>
             <option value="monthly_cost_no_mortgage">Monthly Cost - No Mortgage</option>
-            <option value="median_income">Median Income</option> 
+            <option value="median_income" selected>Median Income</option> 
             <!-- <option value="population">Population</option> -->   
           </select> 
         </div>
@@ -246,15 +251,16 @@
       </div>
     </div>
   </aside>
-</div>
+  </div>
 
 
 
 
   <!-- Inserts the bubble chart -->
-  <div class="col-md-5">
+  <div class="col-md-9">
     <div id="bubble"></div>
   </div>
+  
 
 
 </body>
