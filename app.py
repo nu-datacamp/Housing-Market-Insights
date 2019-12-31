@@ -75,11 +75,11 @@ def county3(county):
     jsonfiles = json.loads(json1)
     return jsonify(jsonfiles)
 
-@app.route("/summarycard/<county>")
-def county4(county):
+@app.route("/summarycard/<county>/<year>")
+def county4(county, year):
     """Return a list of sample names."""
     # Use Pandas to perform the sql querylscc
-    results = pd.read_sql(f"select * from housing where year = '2017'", db.session.bind)
+    results = pd.read_sql(f"select * from housing where year = '{year}'", db.session.bind)
     results["owner_percent"] = results["owner_occupied_units"] / results["total_housing_units"]
     results["occupied_percent"] = results["total_housing_units_occupied"] / results["total_housing_units"]
     results["value_to_income"] = results["median_home_value"] / results["median_income"]
