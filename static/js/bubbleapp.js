@@ -254,8 +254,8 @@ function buildBubbleChart(year, x, y) {
       console.log(`${selectedGeo} is the select geoID`); 
       // update the county card and time series by calling functions with the new geo
       newCountyTimeSeries(selectedGeo);  //updates time series
-      county_select(selectedGeo)  // updates card
-      mapHighlight(geo_id_list[data.points[0].pointIndex])
+      county_select(selectedGeo);  // updates card
+      mapHighlight(mapLayersDict[selectedGeo])
   });
 });
 
