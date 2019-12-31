@@ -4,9 +4,14 @@
 //*******************************************************************************************
 
 selected_county = "0500000US17031"
-selected_var1 = "median_home_value";
-selected_var2 = "median_income";
-selected_var3 = "population"
+selected_zAxis = "population"
+selected_var1 = selected_yAxis
+selected_var2 = selected_xAxis
+selected_var3 = selected_zAxis
+
+//selected_var1 = "median_home_value";
+//selected_var2 = "median_income";
+//selected_var3 = "population"
 
 //*******************************************************************************************
 //  FRIENDLY NAME CONVERTER
@@ -34,6 +39,9 @@ function friendlyName(i){
   }
   else if (i == "median_rent") {
     return  "Median Rent";
+  }
+  else if (i == "median_home_sales_zillow") {
+    return  "Median Home Sales Price";
   }
   else if (i == "monthly_cost_with_mortgage") {
     return  "Monthly Cost - With Mortgage";
@@ -147,6 +155,7 @@ function buildChart(county, var1, var2, var3) {
     console.log(data)
 
     var layout = {
+      plot_bgcolor:"white",
       title: {
         text: friendlyName(var1) + ", " +  friendlyName(var2) +  ", and <br> " + friendlyName(var3) + " Over Time",
         font:{size:16},
@@ -160,11 +169,11 @@ function buildChart(county, var1, var2, var3) {
               },
       },
       showlegend: true,
-      //width: 800,
+      height: 325,
       legend: {
         "orientation": "h",
         x: 0.05,
-        y: 1.12, // -0.3//.
+        y: 1.3, // -0.3//.
         // x: 0.0,
         // y: 1.3, // -0.3//.
         bgcolor: 'rgba(0,0,0,0)'
@@ -172,7 +181,7 @@ function buildChart(county, var1, var2, var3) {
       // plot_bgcolor:"black",
       // paper_bgcolor:"#FFF3",
       margin: {
-        l: 40,
+        l: 20,
         r: 70,
         //b: 50,
         //t: 15,
