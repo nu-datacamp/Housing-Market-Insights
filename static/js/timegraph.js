@@ -85,13 +85,15 @@ function buildChart(county, var1, var2, var3) {
       y: [],
       name: friendlyName(var1),
       type: 'scatter',
+      opacity: 0.65,
       marker: {
         color: '#62ac42', // //6db94d
         size: 8
       },
       line: {
         color: '#62ac42',
-        width: 1
+        width: 3,
+        //dash: 'dash'
       }
     };
     let trace2 = {
@@ -100,13 +102,15 @@ function buildChart(county, var1, var2, var3) {
       name: friendlyName(var2),
       yaxis: 'y2',
       type: 'scatter',
+      opacity: 0.65,
       marker: {
         color: '#2685b5',
         size: 8
       },
       line: {
         color: '#2685b5',
-        width: 1
+        width: 3,
+        //dash:'dot'
       }
     };
 
@@ -116,13 +120,15 @@ function buildChart(county, var1, var2, var3) {
       name: friendlyName(var3),
       yaxis: 'y3',
       type: 'scatter',
+      opacity: 0.65,
       marker: {
         color: '#ca7979',
         size: 8
       },
       line: {
-        color: '#ca7979',
-        width: 1
+        color: '#ca7979, 0.1',
+        width: 3,
+        //dash: 'dashdot'
       }
     };
 
@@ -141,7 +147,12 @@ function buildChart(county, var1, var2, var3) {
     console.log(data)
 
     var layout = {
-      title: friendlyName(var1) + ", " +  friendlyName(var2) +  ", and " + friendlyName(var3) + " Over Time",
+      title: {
+        text: friendlyName(var1) + ", " +  friendlyName(var2) +  ", and <br> " + friendlyName(var3) + " Over Time",
+        font:{size:16},
+        y:0.92
+      },
+      //yaxis: {domain: [0.2, 1.5]},
       xaxis: {domain: [0.3, 0.1]},
       hoverlabel: { 
         font: {
@@ -153,7 +164,10 @@ function buildChart(county, var1, var2, var3) {
       legend: {
         "orientation": "h",
         x: 0.05,
-        y: 1.1
+        y: 1.12, // -0.3//.
+        // x: 0.0,
+        // y: 1.3, // -0.3//.
+        bgcolor: 'rgba(0,0,0,0)'
       },
       // plot_bgcolor:"black",
       // paper_bgcolor:"#FFF3",
@@ -161,7 +175,7 @@ function buildChart(county, var1, var2, var3) {
         l: 40,
         r: 70,
         //b: 50,
-        //t: 50,
+        //t: 15,
         pad: 3
       },
       hovermode: 'x',
@@ -189,6 +203,7 @@ function buildChart(county, var1, var2, var3) {
         titlefont: {color: '#62ac42'},//#1f76b4
         tickfont: {color: '#62ac42'},//#1f76b4
         showgrid: true,
+        position: 0.08
       },
       
       yaxis2: {
@@ -198,7 +213,7 @@ function buildChart(county, var1, var2, var3) {
         anchor: 'free',
         overlaying: 'y',
         side: 'right',
-        position: 0.88,
+        position: 0.87,
         showgrid: false,
         //rangemode:'tozero'   
       },
@@ -209,7 +224,7 @@ function buildChart(county, var1, var2, var3) {
         anchor: 'free',
         overlaying: 'y',
         side: 'right',
-        position: 0.99,
+        position: 1,
         showgrid: false,
         //rangemode:'tozero'  
 
