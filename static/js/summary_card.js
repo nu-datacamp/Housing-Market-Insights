@@ -78,7 +78,7 @@ function buildTable(county) {
 //   console.log(`current selected variable 2 is ${var2}`)
 //   console.log(`current selected variable 3 is ${var3}`)
 
-  d3.json(`/summarycard/${county}`).then((data) => {
+  d3.json(`/summarycard/${county}/${selectedYear}`).then((data) => {
     const median_income = "$" + numberWithCommas(data["0"].median_income);
     const year = data["0"].year;
     const median_home_value = "$" + numberWithCommas(data["0"].median_home_value);
@@ -163,7 +163,7 @@ function buildTable(county) {
             showgrid: false,
             zeroline: false,
             tickvals: [0,50,100],
-            range: [-4,105],
+            range: [-7,107],
             linecolor: 'rgb(102, 102, 102)',
             titlefont: {
               font: {
@@ -190,7 +190,7 @@ function buildTable(county) {
             b: 90,
             t: 110
           },
-          width: 450,
+          width: 400,
           height: 550,
           hovermode: 'closest'
         };
