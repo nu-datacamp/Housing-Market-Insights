@@ -272,3 +272,11 @@ function NewVar3(new_var3){
   //buildCharts(selected_county, selected_var1, selected_var2, selected_var3);
   ChartBuilder()
 }
+
+// if a new county is clicked, will rerun the time series chart
+function newCountyTimeSeries(new_county){
+  selected_county = new_county
+  console.log(`${selected_var3} is the new variable 3 selection`);
+  //buildCharts(selected_county, selected_var1, selected_var2, selected_var3);
+  ChartBuilder()
+}
