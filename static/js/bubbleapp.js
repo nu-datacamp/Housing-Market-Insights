@@ -9,6 +9,7 @@ var selected_yAxis = "median_income";
 var stateView = "all"
 var selectedState = "Illinois"
 var selectedCounty = "Cook County_Illinois"
+var selectedGeoId = '0500000US17031';
 
 // value to enable year time series view of bubble chart
 var loopThroughYear = false
@@ -109,7 +110,6 @@ function whichBubbleBuilder(){
 // Builds the bubble chart
 function buildBubble(year, x, y) {
   d3.json(`/bubble/${year}/${x}/${y}`).then((data) => {
-
     // arrays for plotting
     x_axis_list = [];
     y_axis_list = [];
@@ -203,6 +203,11 @@ function buildBubble(year, x, y) {
         console.log(`${clickedCounty} was clicked`); 
         selectedCounty = stateCountyConvert(clickedCounty);
         console.log(`${selectedCounty} is the select county`); 
+        d3.json(`/${selectedCounty}/${selectedYear}`).then((data) => {
+          selectedGeoId = data["0"].geo_id
+          console.log(`${selectedGeoId} is the selected Geo`); 
+          county_select(selectedGeoId);
+        });
         console.log(data)
     });
 
@@ -353,6 +358,11 @@ function buildBubbleStateHighlight(year, x, y) {
       console.log(`${clickedCounty} was clicked`); 
       selectedCounty = stateCountyConvert(clickedCounty);
       console.log(`${selectedCounty} is the select county`); 
+      d3.json(`/${selectedCounty}/${selectedYear}`).then((data) => {
+        selectedGeoId = data["0"].geo_id
+        console.log(`${selectedGeoId} is the selected Geo`); 
+        county_select(selectedGeoId);
+      });
   });
 });
 
