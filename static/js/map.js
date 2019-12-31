@@ -12,7 +12,7 @@ var mapInterval;
 //   mapInterval = (mapMax - mapMin) / 5;
 // });
 
-function MapApiCall() {
+function MapApiCall(mapVariable, mapYear) {
   d3.json(`/map/${mapVariable}/${mapYear}`).then(mapApiData => { 
   mapMin = mapApiData['min_max']['min'];
   mapMax = mapApiData['min_max']['max'];
@@ -25,39 +25,6 @@ function MapApiCall() {
   id: "mapbox.light",
   accessToken: API_KEY
   });
-
-  function friendlyName(i) {
-    if (i == "total_housing_units") {
-      return "Total Housing Units";
-    }
-    else if (i == "total_housing_units_occupied") {
-      return  "Total Housing Units (Occupied)";
-    }
-    else if (i == "median_rooms") {
-      return  "Median Rooms";
-    }
-    else if (i == "owner_occupied_units") {
-      return  "Owner Occupied Units";
-    }
-    else if (i == "renter_occupied_units") {
-      return  "Renter Occupied Units";
-    }
-    else if (i == "median_home_value") {
-      return  "Median Home Value";
-    }
-    else if (i == "median_rent") {
-      return  "Median Rent";
-    }
-    else if (i == "monthly_cost_with_mortgage") {
-      return  "Monthly Cost - With Mortgage";
-    }
-    else if (i == "monthly_cost_no_mortgage") {
-      return  "Monthly Cost - No Mortgage";
-    }
-    else if (i == "median_income") {
-      return  "Median Income";
-    }
-  }
 
   function mapColor(var_val) {
     if (var_val < (mapMin + mapInterval)) {
@@ -77,15 +44,15 @@ function MapApiCall() {
     }
   };
 
-  function mapPopup (Geo_id) {
-    var mapLabelVariable = `${Geo_id[mapVariable]}`;
-    var mapPopLabel = `${friendlyName(mapVariable)}`;
-    // console.log(mapLabelVariable);
-    // console.log(mapPopLabel);
-    return `<h5>${Geo_id['county']}</h5>
-    <p>${mapPopLabel} : ${mapLabelVariable}</p>
-    <p>Year : ${Geo_id['year']}`
-  }
+  // function mapPopup (Geo_id) {
+  //   var mapLabelVariable = `${Geo_id[mapVariable]}`;
+  //   var mapPopLabel = `${friendlyName(mapVariable)}`;
+  //   // console.log(mapLabelVariable);
+  //   // console.log(mapPopLabel);
+  //   return `<h5>${Geo_id['county']}</h5>
+  //   <p>${mapPopLabel} : ${mapLabelVariable}</p>
+  //   <p>Year : ${Geo_id['year']}`
+  // }
 
   function onEachFeature (feature, layer) {
     // console.log(feature.properties.GEO_ID);
@@ -99,7 +66,10 @@ function MapApiCall() {
         weight : 1,
         fillOpacity : 0.65
       });
-      layer.bindPopup(mapPopup((mapApiData[mapFeatureID])))
+      // layer.bindPopup(mapPopup((mapApiData[mapFeatureID])));
+      layer.on('click', function() {
+        county_select(mapFeatureID);
+      });
     }
     else {
       layer.setStyle({
@@ -133,7 +103,27 @@ function MapApiCall() {
   };
 
   L.control.layers(baseMaps, overlayMaps).addTo(myMap);
-  })
-}
+  
+  var legend = L.control({position: 'bottomright'});
 
-MapApiCall();
+  legend.onAdd = function(myMap) {
+
+    var div1 = L.DomUtil.create('div', 'info legend'),
+      grades = [Math.round(mapMin),Math.round(mapMin + mapInterval),Math.round(mapMin + (2 * mapInterval)),Math.round(mapMin + (3 * mapInterval)),Math.round(mapMin + (4 * mapInterval))],
+      labels = [];
+    
+    div1.innerHTML += `<h5>${friendlyName(mapVariable)}</h5><h5>${mapYear}</h5>`  
+    // loop through our density intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < grades.length; i++) {
+      div1.innerHTML +=
+        '<i style="background:' + mapColor(grades[i]+10) + '"></i> ' +
+        grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+    }
+    return div1;
+  };
+
+  legend.addTo(myMap);
+  })
+};
+
+MapApiCall(mapVariable, mapYear)
