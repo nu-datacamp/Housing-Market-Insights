@@ -492,6 +492,11 @@ function buildBubbleStateIsolate(year, x, y) {
       console.log(`${clickedCounty} was clicked`); 
       selectedCounty = stateCountyConvert(clickedCounty);
       console.log(`${selectedCounty} is the select county`); 
+      d3.json(`/${selectedCounty}/${selectedYear}`).then((data) => {
+        selectedGeoId = data["0"].geo_id
+        console.log(`${selectedGeoId} is the selected Geo`); 
+        county_select(selectedGeoId);
+      });
   });
 });
 
