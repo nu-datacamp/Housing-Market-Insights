@@ -4,12 +4,11 @@
 //*******************************************************************************************
 
 var selectedYear = 2017;
-var selected_xAxis = "median_home_value";
-var selected_yAxis = "median_income";
+var selected_xAxis = "median_income";
+var selected_yAxis = "median_home_value";
 var stateView = "all"
 var selectedState = "Illinois"
 var selectedCounty = "Cook County_Illinois"
-var selectedGeoId = '0500000US17031';
 
 // value to enable year time series view of bubble chart
 var loopThroughYear = false
@@ -110,6 +109,7 @@ function whichBubbleBuilder(){
 // Builds the bubble chart
 function buildBubble(year, x, y) {
   d3.json(`/bubble/${year}/${x}/${y}`).then((data) => {
+
     // arrays for plotting
     x_axis_list = [];
     y_axis_list = [];
@@ -155,32 +155,49 @@ function buildBubble(year, x, y) {
       }
     ];
     layout = {
+      plot_bgcolor:"white",
       hovermode: "closest",
-      automargin: true,
-      height: 630,
-      width: 945,
+      //automargin: true,
+      height: 450,
+      //width: 945,
       showlegend: true,
       legend: {
-        bgcolor: "#f2f2f2",
+        //bgcolor: "#f2f2f2",
         bordercolor: '#999999',
         borderwidth: 0.5,
+        "orientation": "h",
+        x: 0.05,
+        y: 0.9, // -0.3//.
+        // x: 0.0,
+        // y: 1.3, // -0.3//.
+        bgcolor: 'rgba(0,0,0,0)'
+      },
+      margin: {
+        l: 60,
+        r: 10,
+        b: 50,
+        t: 50,
+        pad: 10
       },
       title: {
+        y:0.95,
         text: bubble_title,
         font: {
-          family: 'arial black',
-          size: 18
+          //family: 'arial black',
+          size: 16
           }
         },
       xaxis: { 
         title: x_axis_title,
         zeroline: false,
-        range: [min_x_axis, max_x_axis]
+        range: [min_x_axis, max_x_axis],
+        color:'#2685b5',
       },
       yaxis: { 
         title: y_axis_title,
         zeroline: false,
-        range: [min_y_axis, max_y_axis]
+        range: [min_y_axis, max_y_axis],
+        color:'#62ac42',
       },
     };
 
@@ -203,11 +220,6 @@ function buildBubble(year, x, y) {
         console.log(`${clickedCounty} was clicked`); 
         selectedCounty = stateCountyConvert(clickedCounty);
         console.log(`${selectedCounty} is the select county`); 
-        d3.json(`/${selectedCounty}/${selectedYear}`).then((data) => {
-          selectedGeoId = data["0"].geo_id
-          console.log(`${selectedGeoId} is the selected Geo`); 
-          county_select(selectedGeoId);
-        });
         console.log(data)
     });
 
@@ -285,34 +297,51 @@ function buildBubbleStateHighlight(year, x, y) {
     // Build a Bubble Chart
     var myBubblePlot = document.getElementById('bubble'),
     bubbleLayout = {
+      plot_bgcolor:"white",
       hovermode: "closest",
-      automargin: true,
-      height: 630,
-      width: 945,
+      //automargin: true,
+      height: 450,
+      //width: 945,
       showlegend: true,
       legend: {
-        bgcolor: "#f2f2f2",
+        //bgcolor: "#f2f2f2",
         bordercolor: '#999999',
         borderwidth: 0.5,
+        "orientation": "h",
+        x: 0.05,
+        y: 0.9, // -0.3//.
+        // x: 0.0,
+        // y: 1.3, // -0.3//.
+        bgcolor: 'rgba(0,0,0,0)'
+      },
+      margin: {
+        l: 60,
+        r: 10,
+        b: 50,
+        t: 50,
+        pad: 10
       },
       title: {
+        y:0.95,
         text: bubble_title,
         font: {
-          family: 'arial black',
-          size: 18
+          //family: 'arial black',
+          size: 16
           }
         },
-        xaxis: { 
-          title: x_axis_title,
-          zeroline: false,
-          range: [min_x_axis, max_x_axis]
-        },
-        yaxis: { 
-          title: y_axis_title,
-          zeroline: false,
-          range: [min_y_axis, max_y_axis]
-        },
-      };
+      xaxis: { 
+        title: x_axis_title,
+        zeroline: false,
+        range: [min_x_axis, max_x_axis],
+        color:'#2685b5',
+      },
+      yaxis: { 
+        title: y_axis_title,
+        zeroline: false,
+        range: [min_y_axis, max_y_axis],
+        color:'#62ac42',
+      },
+    };
     
     bubbleData = [
       {
@@ -358,11 +387,6 @@ function buildBubbleStateHighlight(year, x, y) {
       console.log(`${clickedCounty} was clicked`); 
       selectedCounty = stateCountyConvert(clickedCounty);
       console.log(`${selectedCounty} is the select county`); 
-      d3.json(`/${selectedCounty}/${selectedYear}`).then((data) => {
-        selectedGeoId = data["0"].geo_id
-        console.log(`${selectedGeoId} is the selected Geo`); 
-        county_select(selectedGeoId);
-      });
   });
 });
 
@@ -431,34 +455,51 @@ function buildBubbleStateIsolate(year, x, y) {
     // Build a Bubble Chart
     var myBubblePlot = document.getElementById('bubble'),
     bubbleLayout = {
+      plot_bgcolor:"white",
       hovermode: "closest",
-      automargin: true,
-      height: 630,
-      width: 945,
+      //automargin: true,
+      height: 450,
+      //width: 945,
       showlegend: true,
       legend: {
-        bgcolor: "#f2f2f2",
+        //bgcolor: "#f2f2f2",
         bordercolor: '#999999',
         borderwidth: 0.5,
+        "orientation": "h",
+        x: 0.05,
+        y: 0.9, // -0.3//.
+        // x: 0.0,
+        // y: 1.3, // -0.3//.
+        bgcolor: 'rgba(0,0,0,0)'
+      },
+      margin: {
+        l: 60,
+        r: 10,
+        b: 50,
+        t: 50,
+        pad: 10
       },
       title: {
+        y:0.95,
         text: bubble_title,
         font: {
-          family: 'arial black',
-          size: 18
+          //family: 'arial black',
+          size: 16
           }
         },
-        xaxis: { 
-          title: x_axis_title,
-          zeroline: false,
-          range: [min_x_axis, max_x_axis]
-        },
-        yaxis: { 
-          title: y_axis_title,
-          zeroline: false,
-          range: [min_y_axis, max_y_axis]
-        },
-      };
+      xaxis: { 
+        title: x_axis_title,
+        zeroline: false,
+        range: [min_x_axis, max_x_axis],
+        color:'#2685b5',
+      },
+      yaxis: { 
+        title: y_axis_title,
+        zeroline: false,
+        range: [min_y_axis, max_y_axis],
+        color:'#62ac42',
+      },
+    };
     
     bubbleData = [
       {
@@ -492,11 +533,6 @@ function buildBubbleStateIsolate(year, x, y) {
       console.log(`${clickedCounty} was clicked`); 
       selectedCounty = stateCountyConvert(clickedCounty);
       console.log(`${selectedCounty} is the select county`); 
-      d3.json(`/${selectedCounty}/${selectedYear}`).then((data) => {
-        selectedGeoId = data["0"].geo_id
-        console.log(`${selectedGeoId} is the selected Geo`); 
-        county_select(selectedGeoId);
-      });
   });
 });
 
