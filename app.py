@@ -63,6 +63,18 @@ def county2(county):
     json1 = results.to_json(orient='records')
     jsonfiles = json.loads(json1)
     return jsonify(jsonfiles)
+
+
+@app.route("/<county_state>/<year>")
+def county30(county_state, year):
+    """Return a list of sample names."""
+    # Use Pandas to perform the sql querylscc
+    results = pd.read_sql(f"select geo_id,county, county_state from housing where year = {year} and county_state = '{county_state}'", db.session.bind)
+    # print(results)
+    # Return a list of the column names (sample names)
+    json1 = results.to_json(orient='records')
+    jsonfiles = json.loads(json1)
+    return jsonify(jsonfiles)
     
 @app.route("/timeseries/<county>")
 def county3(county):
@@ -74,6 +86,7 @@ def county3(county):
     json1 = results.to_json(orient='records')
     jsonfiles = json.loads(json1)
     return jsonify(jsonfiles)
+
 
 @app.route("/summarycard/<county>/<year>")
 def county4(county, year):
