@@ -101,6 +101,7 @@ function MapApiCall(mapVariable, mapYear) {
       layer.on('click', function() {
         county_select(mapFeatureID);
         mapHighlight(layer);
+        newCountyTimeSeries(mapFeatureID)
         // console.log(layer)
       });
       mapLayersDict[mapFeatureID] = layer;
