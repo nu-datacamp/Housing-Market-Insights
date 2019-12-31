@@ -5,7 +5,38 @@ var mapYear = '2015';
 var mapMin;
 var mapMax;
 var mapInterval;
+mapLayersDict = {};
+var mapDefaultStyle;
+var mapHighlightStyle = {
+  color : '#774947',
+  weight : 3.5,
+};
+var mapSelectedCounty;
+var myMap;
 
+function setHighlight (layer) {
+  // Check if something's highlighted, if so unset highlight
+  // Set highlight style on layer and store to variable
+  if (mapSelectedCounty) {
+    unsetHighlight(mapSelectedCounty);
+  };
+  mapDefaultStyle = {
+    fillColor : layer.options.fillColor,
+    color : layer.options.color,
+    weight: .75
+  };
+  layer.setStyle(mapHighlightStyle);
+  layer.bringToFront();
+  myMap.fitBounds(layer.getBounds());
+  mapSelectedCounty = layer;
+};
+
+function unsetHighlight (layer) {
+  // Set default style and clear variable
+  layer.setStyle(mapDefaultStyle);
+  layer.bringToBack();
+  mapSelectedCounty = null;
+};
 // var MmCall = d3.json(`/map/${mapVariable}/${mapYear}/min_max`).then(data => {
 //   mapMin = data.min;
 //   mapMax = data.max;
@@ -21,7 +52,7 @@ function MapApiCall(mapVariable, mapYear) {
   // Define streetmap and darkmap layers
   var streets = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
   attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-  maxZoom: 18,
+  maxZoom: 8,
   id: "mapbox.light",
   accessToken: API_KEY
   });
@@ -63,13 +94,16 @@ function MapApiCall(mapVariable, mapYear) {
       layer.setStyle({
         fillColor : mapColor(mapApiData[mapFeatureID][mapFeaureVariable]),
         color : mapColor(mapApiData[mapFeatureID][mapFeaureVariable]),
-        weight : 1,
+        weight : .75,
         fillOpacity : 0.65
       });
       // layer.bindPopup(mapPopup((mapApiData[mapFeatureID])));
       layer.on('click', function() {
         county_select(mapFeatureID);
+        setHighlight(layer);
+        // console.log(layer)
       });
+      mapLayersDict[mapFeatureID] = layer;
     }
     else {
       layer.setStyle({
@@ -83,12 +117,12 @@ function MapApiCall(mapVariable, mapYear) {
     onEachFeature: onEachFeature
   });
 
+
+
   // Create our map, giving it the streetmap and earthquakes layers to display on load
-  var myMap = L.map("map", {
-    center: [
-      44.967243, -103.771556
-    ],
-    zoom: 3,
+  myMap = L.map("map", {
+    center: [39.833333, -98.583333],
+    zoom: 4,
     layers: [counties, streets]
   });
 
@@ -123,7 +157,8 @@ function MapApiCall(mapVariable, mapYear) {
   };
 
   legend.addTo(myMap);
+  setHighlight(mapLayersDict['0500000US17031'])
   })
 };
 
-MapApiCall(mapVariable, mapYear)
+MapApiCall(mapVariable, mapYear);

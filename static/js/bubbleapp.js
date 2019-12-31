@@ -116,9 +116,11 @@ function buildBubble(year, x, y) {
     county_labels_list = [];
     pop_size_list = [];
     county_st_list = [];
+    geo_id_list = [];
 
     // populate arrays
     data.forEach(d => {
+      geo_id_list.push(d['geo_id']);
       x_axis_list.push(d[x]);
       y_axis_list.push(d[y]);
       county_labels_list.push(d["county"] + ", " + d["state"]);
@@ -216,11 +218,12 @@ function buildBubble(year, x, y) {
     
 
     myBubblePlot.on('plotly_click', function(data){
-        clickedCounty = data.points[0].text;
-        console.log(`${clickedCounty} was clicked`); 
-        selectedCounty = stateCountyConvert(clickedCounty);
-        console.log(`${selectedCounty} is the select county`); 
-        console.log(data)
+      clickedCounty = data.points[0].text;
+      // console.log(`${clickedCounty} was clicked`); 
+      selectedCounty = stateCountyConvert(clickedCounty);
+      county_select(geo_id_list[data.points[0].pointIndex]);
+      setHighlight(mapLayersDict[geo_id_list[data.points[0].pointIndex]])
+      // console.log(`${selectedCounty} is the select county`); 
     });
 
 
@@ -384,9 +387,11 @@ function buildBubbleStateHighlight(year, x, y) {
 
     myBubblePlot.on('plotly_click', function(data){
       clickedCounty = data.points[0].text;
-      console.log(`${clickedCounty} was clicked`); 
+      // console.log(`${clickedCounty} was clicked`); 
       selectedCounty = stateCountyConvert(clickedCounty);
-      console.log(`${selectedCounty} is the select county`); 
+      county_select(geo_id_list[data.points[0].pointIndex]);
+      setHighlight(mapLayersDict[geo_id_list[data.points[0].pointIndex]])
+      // console.log(`${selectedCounty} is the select county`); 
   });
 });
 
@@ -530,9 +535,11 @@ function buildBubbleStateIsolate(year, x, y) {
 
     myBubblePlot.on('plotly_click', function(data){
       clickedCounty = data.points[0].text;
-      console.log(`${clickedCounty} was clicked`); 
+      // console.log(`${clickedCounty} was clicked`); 
       selectedCounty = stateCountyConvert(clickedCounty);
-      console.log(`${selectedCounty} is the select county`); 
+      county_select(geo_id_list[data.points[0].pointIndex]);
+      setHighlight(mapLayersDict[geo_id_list[data.points[0].pointIndex]])
+      // console.log(`${selectedCounty} is the select county`); 
   });
 });
 
