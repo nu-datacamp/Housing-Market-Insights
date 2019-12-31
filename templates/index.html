@@ -15,7 +15,7 @@
 </head>
 
 <body>
-<div style="background-color:#d6d6d6;">
+<div style="background-color:white;">
   <div class="container-fluid">
     <div class="jumbotron text-center" >
       <h1><strong>U.S. Housing Analysis</strong></h1>
@@ -40,115 +40,39 @@
       </div>
     </div>
 
+    
 
 
-      <br>
+      <!-- <div class="row justify-content-center">
+          <div align="center"> -->
 
-      <div class="row justify-content-center">
-          <div align="center">
-          <br>
-
-        <div class="col-lg-6">
-          <p>Bubble Chart (col-lg-6)</p>
-        </div>
-
-        <div class="col-lg-6">
-          <div id="line-chart"></div>
-          <p>Line Chart  (col-lg-6)</p>
-        </div>   
-        
-        
-        <div class="col-lg-6">
-          <img src="../images/rent_cartoon.png" alt="rent">
-          <p>Place Holder1 (col-lg-6)</p>
-        </div>   
-
-        <div class="col-lg-3">
-          <aside class="filters">
-            <div class="panel panel-success">
-              <div class="panel-heading"><strong>Select variable 1</strong></div>
-              <div class="panel-body">
-                <select id="VariableOneSelection" onchange="NewVar1(this.value)">
-                  <option value="median_home_value">Median Home Value</option>
-                  <option value="total_housing_units">Total Housing Units</option>
-                  <option value="total_housing_units_occupied">Total Housing Units (Occupied)</option>
-                  <option value="median_rooms">Median Rooms</option>
-                  <option value="owner_occupied_units">Owner Occupied Units</option>
-                  <option value="renter_occupied_units">Renter Occupied Units</option>
-                  <option value="median_rent">Median Rent</option>
-                  <option value="monthly_cost_with_mortgage">Monthly Cost - With Mortgage</option>
-                  <option value="monthly_cost_no_mortgage">Monthly Cost - No Mortgage</option>
-                  <option value="median_income">Median Income</option> 
-                  <option value="population">Population</option>
-                </select> 
-              </div>
-            </div>
-          </aside>
-        </div>
-
-        <div class="col-lg-3">
-          <aside class="filters">
-            <div class="panel panel-info">
-              <div class="panel-heading"><strong>Select variable 2</strong></div>
-              <div class="panel-body">
-                <select id="VariableTwoSelection" onchange="NewVar2(this.value)">
-                  <option value="median_income">Median Income</option> 
-                  <option value="total_housing_units">Total Housing Units</option>
-                  <option value="total_housing_units_occupied">Total Housing Units (Occupied)</option>
-                  <option value="median_rooms">Median Rooms</option>
-                  <option value="owner_occupied_units">Owner Occupied Units</option>
-                  <option value="renter_occupied_units">Renter Occupied Units</option>
-                  <option value="median_home_value">Median Home Value</option>
-                  <option value="median_rent">Median Rent</option>
-                  <option value="monthly_cost_with_mortgage">Monthly Cost - With Mortgage</option>
-                  <option value="monthly_cost_no_mortgage">Monthly Cost - No Mortgage</option>
-                  <option value="population">Population</option>
-                </select> 
-              </div>
-            </div>
-          </aside>
-        </div>
 
         <div class="col-lg-9">
-          <p>Place Holder2 (col-lg-6)</p>
-        </div> 
-
-        <div class="col-lg-3">
-          <aside class="filters">
-            <div class="panel panel-danger">
-              <div class="panel-heading"><strong>Select variable 3</strong></div>
-              <div class="panel-body">
-                <select id="VariableThreeSelection" onchange="NewVar3(this.value)">
-                  <option value="population">Population</option>
-                  <option value="total_housing_units">Total Housing Units</option>
-                  <option value="total_housing_units_occupied">Total Housing Units (Occupied)</option>
-                  <option value="median_rooms">Median Rooms</option>
-                  <option value="owner_occupied_units">Owner Occupied Units</option>
-                  <option value="renter_occupied_units">Renter Occupied Units</option>
-                  <option value="median_home_value">Median Home Value</option>
-                  <option value="median_rent">Median Rent</option>
-                  <option value="monthly_cost_with_mortgage">Monthly Cost - With Mortgage</option>
-                  <option value="monthly_cost_no_mortgage">Monthly Cost - No Mortgage</option>
-                  <option value="median_income">Median Income</option> 
-                </select> 
-              </div>
-            </div>
-          </aside>
-        </div>  
+          <p>Place holder (col-lg-9) something about the map above?</p>
         </div>
-      </div>
-      </div>
 
+       
+        
+        
+        <div class="col-lg-3">
+          <!-- <img src="../images/rent_cartoon.png" alt="rent"> -->
+          <p>Place Holder (col-lg-3) something about the summary card above?</p>
+        </div>   
+
+      <br>
       <br>
 
       <div class="row justify-content-center">
-          <div align="center">
+          <!-- <div align="center"></div> -->
           <br>
-        <div class="col-lg-6">
-          <p>Summary (col-lg-6)</p>
+        <div class="col-lg-9">
+          <p align="left">Summary (col-lg-9) something about the menu and the plot below Lorem ipsum dolor sit amet, partem alterum deterruisset pro eu, id usu mutat nostro accusam. Vero tota consequuntur sed et. Ex euismod contentiones has, at nec error semper malorum. Solet temporibus sed no. Mel vivendum concludaturque ne, feugiat voluptua explicari pro ut, duo ex meis paulo copiosae. Mei et novum partem imperdiet, amet persequeris eam id. Congue impetus delectus in pri, qui eu tollit civibus.</p>
         </div>
-        <div class="col-lg-6">
-          <p>Summary (col-lg-6)</p>
+        <!-- <div class="col-lg-6">
+          <p>Summary (col-lg-6) something something something</p>
+        </div> -->
+        <div class="col-lg-3">
+          <p align="left">Summary (col-lg-3) Extra stuff Lorem ipsum dolor sit amet, partem alterum deterruisset pro eu</p>
         </div>
       </div>
       </div>
@@ -178,29 +102,52 @@
             <option value="2011">2011</option>
             <option value="2010">2010</option>
           </select> 
-          <button id="timeAll-btn" type="button" class="btn btn-warning" onclick="bubbleOverTime()">
+          <button id="timeAll-btn" type="button" class="btn btn-warning" style="background-color:black; color:white; border:transparent"onclick="bubbleOverTime()">
             <span class="glyphicon glyphicon-play" aria-hidden="true"> </span> Play Over Time
           </button>
         </div>
       </div>
     </aside>
 
+      <!-- State select options -->
     <aside class="filters">
       <div class="panel panel-default">
-        <div class="panel-heading"><strong>Select X Axis</strong></div>
+        <div class="panel-heading"><strong>State Filters</strong></div>
         <div class="panel-body">
-          <select id="xAxisSelection" onchange="newXBubble(this.value)">
+          <form>
+            <div class="form-group">
+              <ul class="list-group" id="filters">
+                <li class="filter list-group-item">
+                  <label for="state">Type in a State</label>
+                  <input class="form-control" id="stateSelector" type="text" placeholder="Illinois">
+                </li>
+              </ul>
+            </div>
+            <button id="stateHighlight-btn" type="button" class="btn btn-primary" style="background-color:rgb(252, 189, 134); color:darkslategray; border:transparent" onclick="stateHighlight()"> Highlight State </button>
+            <button id="stateIsolate-btn" type="button" class="btn btn-primary"  style="background-color:rgb(252, 189, 134); color:darkslategray; border:transparent" onclick="stateIsolate()"> Isolate State </button>
+            <hr>
+            <button id="stateAll-btn" type="button" class="btn btn-primary"  style="background-color:black; color:white; border:transparent" onclick="stateAll()">Show All States </button>
+          </form>
+        </div>
+      </div>
+    </aside>
+
+    <aside class="filters">
+      <div class="panel panel-success">
+        <div class="panel-heading"><strong>Select X Axis (Variable 1)</strong></div>
+        <div class="panel-body">
+          <select id="xAxisSelection" onchange="newXBubble(this.value); NewVar2(this.value);">
             <option value="total_housing_units">Total Housing Units</option>
             <option value="total_housing_units_occupied">Total Housing Units (Occupied)</option>
             <option value="median_rooms">Median Rooms</option>
             <option value="owner_occupied_units">Owner Occupied Units</option>
             <option value="renter_occupied_units">Renter Occupied Units</option>
-            <option value="median_home_value" selected>Median Home Value</option>
+            <option value="median_home_value" >Median Home Value</option>
             <option value="median_home_sales_zillow">Median Home Sales Price</option>            
             <option value="median_rent">Median Rent</option>
             <option value="monthly_cost_with_mortgage">Monthly Cost - With Mortgage</option>
             <option value="monthly_cost_no_mortgage">Monthly Cost - No Mortgage</option>
-            <option value="median_income">Median Income</option> 
+            <option value="median_income" selected>Median Income</option> 
             <!-- <option value="population">Population</option> -->
           </select> 
         </div>
@@ -208,10 +155,32 @@
     </aside>
 
     <aside class="filters">
-      <div class="panel panel-default">
-        <div class="panel-heading"><strong>Select Y Axis</strong></div>
+      <div class="panel panel-info">
+        <div class="panel-heading"><strong>Select Y Axis (Variable 2)</strong></div>
         <div class="panel-body">
-          <select id="yAxisSelection" onchange="newYBubble(this.value)">
+          <select id="yAxisSelection" onchange="newYBubble(this.value); NewVar1(this.value);">
+            <option value="total_housing_units">Total Housing Units</option>
+            <option value="total_housing_units_occupied">Total Housing Units (Occupied)</option>
+            <option value="median_rooms">Median Rooms</option>
+            <option value="owner_occupied_units">Owner Occupied Units</option>
+            <option value="renter_occupied_units">Renter Occupied Units</option>
+            <option value="median_home_value" selected>Median Home Value</option>
+            <option value="median_home_sales_zillow">Median Home Sales Price</option>  
+            <option value="median_rent">Median Rent</option>
+            <option value="monthly_cost_with_mortgage">Monthly Cost - With Mortgage</option>
+            <option value="monthly_cost_no_mortgage">Monthly Cost - No Mortgage</option>
+            <option value="median_income" >Median Income</option> 
+            <!-- <option value="population">Population</option> -->   
+          </select> 
+        </div>
+      </div>
+    </aside>
+
+    <aside class="filters">
+      <div class="panel panel-danger">
+        <div class="panel-heading"><strong>Select Variable 3</strong></div>
+        <div class="panel-body">
+          <select id="zAxisSelection" onchange="NewVar3(this.value);">
             <option value="total_housing_units">Total Housing Units</option>
             <option value="total_housing_units_occupied">Total Housing Units (Occupied)</option>
             <option value="median_rooms">Median Rooms</option>
@@ -222,45 +191,122 @@
             <option value="median_rent">Median Rent</option>
             <option value="monthly_cost_with_mortgage">Monthly Cost - With Mortgage</option>
             <option value="monthly_cost_no_mortgage">Monthly Cost - No Mortgage</option>
-            <option value="median_income" selected>Median Income</option> 
+            <option value="median_income">Median Income</option> 
+            <option value="population" selected>Population</option> 
             <!-- <option value="population">Population</option> -->   
           </select> 
         </div>
       </div>
     </aside>
 
-    <!-- State select options -->
-  <aside class="filters">
-    <div class="panel panel-default">
-      <div class="panel-heading"><strong>State Filters</strong></div>
-      <div class="panel-body">
-        <form>
-          <div class="form-group">
-            <ul class="list-group" id="filters">
-              <li class="filter list-group-item">
-                <label for="state">Type in a State</label>
-                <input class="form-control" id="stateSelector" type="text" placeholder="Illinois">
-              </li>
-            </ul>
-          </div>
-          <button id="stateHighlight-btn" type="button" class="btn btn-primary" onclick="stateHighlight()"> Highlight State </button>
-          <button id="stateIsolate-btn" type="button" class="btn btn-primary" onclick="stateIsolate()"> Isolate State </button>
-          <hr>
-          <button id="stateAll-btn" type="button" class="btn btn-primary" onclick="stateAll()">Show All States </button>
-        </form>
-      </div>
-    </div>
-  </aside>
+  
   </div>
 
 
 
 
   <!-- Inserts the bubble chart -->
-  <div class="col-md-9">
+  <div class="col-md-6">
     <div id="bubble"></div>
+    <br>
+    <br>
+    <div id="line-chart"></div>
   </div>
   
+  <div class="col-md-3">
+    <p>Lorem ipsum dolor sit amet, partem alterum deterruisset pro eu, id usu mutat nostro accusam. Vero tota consequuntur sed et. Ex euismod contentiones has, at nec error semper malorum. Solet temporibus sed no. Mel vivendum concludaturque ne, feugiat voluptua explicari pro ut, duo ex meis paulo copiosae. Mei et novum partem imperdiet, amet persequeris eam id. Congue impetus delectus in pri, qui eu tollit civibus.</p>
+    <p> </p>
+    <p>Lorem ipsum dolor sit amet, partem alterum deterruisset pro eu, id usu mutat nostro accusam. Vero tota consequuntur sed et. Ex euismod contentiones has, at nec error semper malorum. Solet temporibus sed no. Mel vivendum concludaturque ne, feugiat voluptua explicari pro ut, duo ex meis paulo copiosae. Mei et novum partem imperdiet, amet persequeris eam id. Congue impetus delectus in pri, qui eu tollit civibus.</p>
+    <p> </p>
+    <p>sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches </p>
+    <p> </p>
+    <p> more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches </p>
+  </div>
+
+  <div class="col-md-12">
+    <p>place holder  (col-lg-12)</p>
+  </div>   
+
+  <!-- <div class="col-md-4">
+    <div id="line-chart"></div>
+    <p>Line Chart  (col-lg-6)</p>
+  </div>    -->
+  
+  <!-- <div class="col-lg-3">
+    <aside class="filters">
+      <div class="panel panel-success">
+        <div class="panel-heading"><strong>Select variable 1</strong></div>
+        <div class="panel-body">
+          <select id="VariableOneSelection" onchange="NewVar1(this.value)">
+            <option value="median_home_value">Median Home Value</option>
+            <option value="total_housing_units">Total Housing Units</option>
+            <option value="total_housing_units_occupied">Total Housing Units (Occupied)</option>
+            <option value="median_rooms">Median Rooms</option>
+            <option value="owner_occupied_units">Owner Occupied Units</option>
+            <option value="renter_occupied_units">Renter Occupied Units</option>
+            <option value="median_rent">Median Rent</option>
+            <option value="monthly_cost_with_mortgage">Monthly Cost - With Mortgage</option>
+            <option value="monthly_cost_no_mortgage">Monthly Cost - No Mortgage</option>
+            <option value="median_income">Median Income</option> 
+            <option value="population">Population</option>
+          </select> 
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="col-lg-3">
+    <aside class="filters">
+      <div class="panel panel-info">
+        <div class="panel-heading"><strong>Select variable 2</strong></div>
+        <div class="panel-body">
+          <select id="VariableTwoSelection" onchange="NewVar2(this.value)">
+            <option value="median_income">Median Income</option> 
+            <option value="total_housing_units">Total Housing Units</option>
+            <option value="total_housing_units_occupied">Total Housing Units (Occupied)</option>
+            <option value="median_rooms">Median Rooms</option>
+            <option value="owner_occupied_units">Owner Occupied Units</option>
+            <option value="renter_occupied_units">Renter Occupied Units</option>
+            <option value="median_home_value">Median Home Value</option>
+            <option value="median_rent">Median Rent</option>
+            <option value="monthly_cost_with_mortgage">Monthly Cost - With Mortgage</option>
+            <option value="monthly_cost_no_mortgage">Monthly Cost - No Mortgage</option>
+            <option value="population">Population</option>
+          </select> 
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="col-lg-9">
+    <p>Place Holder2 (col-lg-6)</p>
+  </div> 
+
+  <div class="col-lg-3">
+    <aside class="filters">
+      <div class="panel panel-danger">
+        <div class="panel-heading"><strong>Select variable 3</strong></div>
+        <div class="panel-body">
+          <select id="VariableThreeSelection" onchange="NewVar3(this.value)">
+            <option value="population">Population</option>
+            <option value="total_housing_units">Total Housing Units</option>
+            <option value="total_housing_units_occupied">Total Housing Units (Occupied)</option>
+            <option value="median_rooms">Median Rooms</option>
+            <option value="owner_occupied_units">Owner Occupied Units</option>
+            <option value="renter_occupied_units">Renter Occupied Units</option>
+            <option value="median_home_value">Median Home Value</option>
+            <option value="median_rent">Median Rent</option>
+            <option value="monthly_cost_with_mortgage">Monthly Cost - With Mortgage</option>
+            <option value="monthly_cost_no_mortgage">Monthly Cost - No Mortgage</option>
+            <option value="median_income">Median Income</option> 
+          </select> 
+        </div>
+      </div>
+    </aside>
+  </div>  
+  </div> -->
+</div>
+</div>
 
 
 </body>
