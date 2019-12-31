@@ -14,11 +14,11 @@ var mapHighlightStyle = {
 var mapSelectedCounty;
 var myMap;
 
-function setHighlight (layer) {
+function mapHighlight (layer) {
   // Check if something's highlighted, if so unset highlight
   // Set highlight style on layer and store to variable
   if (mapSelectedCounty) {
-    unsetHighlight(mapSelectedCounty);
+    mapUnHighlight(mapSelectedCounty);
   };
   mapDefaultStyle = {
     fillColor : layer.options.fillColor,
@@ -31,7 +31,7 @@ function setHighlight (layer) {
   mapSelectedCounty = layer;
 };
 
-function unsetHighlight (layer) {
+function mapUnHighlight (layer) {
   // Set default style and clear variable
   layer.setStyle(mapDefaultStyle);
   layer.bringToBack();
@@ -100,7 +100,7 @@ function MapApiCall(mapVariable, mapYear) {
       // layer.bindPopup(mapPopup((mapApiData[mapFeatureID])));
       layer.on('click', function() {
         county_select(mapFeatureID);
-        setHighlight(layer);
+        mapHighlight(layer);
         // console.log(layer)
       });
       mapLayersDict[mapFeatureID] = layer;
@@ -157,7 +157,7 @@ function MapApiCall(mapVariable, mapYear) {
   };
 
   legend.addTo(myMap);
-  setHighlight(mapLayersDict['0500000US17031'])
+  mapHighlight(mapLayersDict['0500000US17031'])
   })
 };
 
