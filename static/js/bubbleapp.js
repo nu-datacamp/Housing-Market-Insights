@@ -4,11 +4,12 @@
 //*******************************************************************************************
 
 var selectedYear = 2017;
-var selected_xAxis = "median_income";
-var selected_yAxis = "median_home_value";
-var stateView = "all"
-var selectedState = "Illinois"
-var selectedCounty = "Cook County_Illinois"
+var selected_xAxis = "median_home_value";
+var selected_yAxis = "median_income";
+var stateView = "all";
+var selectedState = "Illinois";
+var selectedCounty = "Cook County_Illinois";
+var selectedGeoId = "0500000US17031";
 
 // value to enable year time series view of bubble chart
 var loopThroughYear = false
@@ -116,11 +117,9 @@ function buildBubble(year, x, y) {
     county_labels_list = [];
     pop_size_list = [];
     county_st_list = [];
-    geo_id_list = [];
 
     // populate arrays
     data.forEach(d => {
-      geo_id_list.push(d['geo_id']);
       x_axis_list.push(d[x]);
       y_axis_list.push(d[y]);
       county_labels_list.push(d["county"] + ", " + d["state"]);
@@ -157,49 +156,32 @@ function buildBubble(year, x, y) {
       }
     ];
     layout = {
-      plot_bgcolor:"white",
       hovermode: "closest",
-      //automargin: true,
-      height: 450,
-      //width: 945,
+      automargin: true,
+      height: 630,
+      width: 945,
       showlegend: true,
       legend: {
-        //bgcolor: "#f2f2f2",
+        bgcolor: "#f2f2f2",
         bordercolor: '#999999',
         borderwidth: 0.5,
-        "orientation": "h",
-        x: 0.05,
-        y: 0.9, // -0.3//.
-        // x: 0.0,
-        // y: 1.3, // -0.3//.
-        bgcolor: 'rgba(0,0,0,0)'
-      },
-      margin: {
-        l: 60,
-        r: 10,
-        b: 50,
-        t: 50,
-        pad: 10
       },
       title: {
-        y:0.95,
         text: bubble_title,
         font: {
-          //family: 'arial black',
-          size: 16
+          family: 'arial black',
+          size: 18
           }
         },
       xaxis: { 
         title: x_axis_title,
         zeroline: false,
-        range: [min_x_axis, max_x_axis],
-        color:'#2685b5',
+        range: [min_x_axis, max_x_axis]
       },
       yaxis: { 
         title: y_axis_title,
         zeroline: false,
-        range: [min_y_axis, max_y_axis],
-        color:'#62ac42',
+        range: [min_y_axis, max_y_axis]
       },
     };
 
@@ -218,12 +200,17 @@ function buildBubble(year, x, y) {
     
 
     myBubblePlot.on('plotly_click', function(data){
-      clickedCounty = data.points[0].text;
-      // console.log(`${clickedCounty} was clicked`); 
-      selectedCounty = stateCountyConvert(clickedCounty);
-      county_select(geo_id_list[data.points[0].pointIndex]);
-      setHighlight(mapLayersDict[geo_id_list[data.points[0].pointIndex]])
-      // console.log(`${selectedCounty} is the select county`); 
+        clickedCounty = data.points[0].text;
+        console.log(`${clickedCounty} was clicked`); 
+        selectedCounty = stateCountyConvert(clickedCounty);
+        console.log(`${selectedCounty} is the select county`); 
+       
+        function countytogeo(selectedCounty) {
+          d3.json(`/${selectedCounty}`).then((jsondata) => {
+            selectedgeoID = jsondata["geo_id"]
+            console.log(selectedgeoID)
+        });
+      }
     });
 
 
@@ -300,51 +287,34 @@ function buildBubbleStateHighlight(year, x, y) {
     // Build a Bubble Chart
     var myBubblePlot = document.getElementById('bubble'),
     bubbleLayout = {
-      plot_bgcolor:"white",
       hovermode: "closest",
-      //automargin: true,
-      height: 450,
-      //width: 945,
+      automargin: true,
+      height: 630,
+      width: 945,
       showlegend: true,
       legend: {
-        //bgcolor: "#f2f2f2",
+        bgcolor: "#f2f2f2",
         bordercolor: '#999999',
         borderwidth: 0.5,
-        "orientation": "h",
-        x: 0.05,
-        y: 0.9, // -0.3//.
-        // x: 0.0,
-        // y: 1.3, // -0.3//.
-        bgcolor: 'rgba(0,0,0,0)'
-      },
-      margin: {
-        l: 60,
-        r: 10,
-        b: 50,
-        t: 50,
-        pad: 10
       },
       title: {
-        y:0.95,
         text: bubble_title,
         font: {
-          //family: 'arial black',
-          size: 16
+          family: 'arial black',
+          size: 18
           }
         },
-      xaxis: { 
-        title: x_axis_title,
-        zeroline: false,
-        range: [min_x_axis, max_x_axis],
-        color:'#2685b5',
-      },
-      yaxis: { 
-        title: y_axis_title,
-        zeroline: false,
-        range: [min_y_axis, max_y_axis],
-        color:'#62ac42',
-      },
-    };
+        xaxis: { 
+          title: x_axis_title,
+          zeroline: false,
+          range: [min_x_axis, max_x_axis]
+        },
+        yaxis: { 
+          title: y_axis_title,
+          zeroline: false,
+          range: [min_y_axis, max_y_axis]
+        },
+      };
     
     bubbleData = [
       {
@@ -387,11 +357,9 @@ function buildBubbleStateHighlight(year, x, y) {
 
     myBubblePlot.on('plotly_click', function(data){
       clickedCounty = data.points[0].text;
-      // console.log(`${clickedCounty} was clicked`); 
+      console.log(`${clickedCounty} was clicked`); 
       selectedCounty = stateCountyConvert(clickedCounty);
-      county_select(geo_id_list[data.points[0].pointIndex]);
-      setHighlight(mapLayersDict[geo_id_list[data.points[0].pointIndex]])
-      // console.log(`${selectedCounty} is the select county`); 
+      console.log(`${selectedCounty} is the select county`); 
   });
 });
 
@@ -460,51 +428,34 @@ function buildBubbleStateIsolate(year, x, y) {
     // Build a Bubble Chart
     var myBubblePlot = document.getElementById('bubble'),
     bubbleLayout = {
-      plot_bgcolor:"white",
       hovermode: "closest",
-      //automargin: true,
-      height: 450,
-      //width: 945,
+      automargin: true,
+      height: 630,
+      width: 945,
       showlegend: true,
       legend: {
-        //bgcolor: "#f2f2f2",
+        bgcolor: "#f2f2f2",
         bordercolor: '#999999',
         borderwidth: 0.5,
-        "orientation": "h",
-        x: 0.05,
-        y: 0.9, // -0.3//.
-        // x: 0.0,
-        // y: 1.3, // -0.3//.
-        bgcolor: 'rgba(0,0,0,0)'
-      },
-      margin: {
-        l: 60,
-        r: 10,
-        b: 50,
-        t: 50,
-        pad: 10
       },
       title: {
-        y:0.95,
         text: bubble_title,
         font: {
-          //family: 'arial black',
-          size: 16
+          family: 'arial black',
+          size: 18
           }
         },
-      xaxis: { 
-        title: x_axis_title,
-        zeroline: false,
-        range: [min_x_axis, max_x_axis],
-        color:'#2685b5',
-      },
-      yaxis: { 
-        title: y_axis_title,
-        zeroline: false,
-        range: [min_y_axis, max_y_axis],
-        color:'#62ac42',
-      },
-    };
+        xaxis: { 
+          title: x_axis_title,
+          zeroline: false,
+          range: [min_x_axis, max_x_axis]
+        },
+        yaxis: { 
+          title: y_axis_title,
+          zeroline: false,
+          range: [min_y_axis, max_y_axis]
+        },
+      };
     
     bubbleData = [
       {
@@ -535,11 +486,9 @@ function buildBubbleStateIsolate(year, x, y) {
 
     myBubblePlot.on('plotly_click', function(data){
       clickedCounty = data.points[0].text;
-      // console.log(`${clickedCounty} was clicked`); 
+      console.log(`${clickedCounty} was clicked`); 
       selectedCounty = stateCountyConvert(clickedCounty);
-      county_select(geo_id_list[data.points[0].pointIndex]);
-      setHighlight(mapLayersDict[geo_id_list[data.points[0].pointIndex]])
-      // console.log(`${selectedCounty} is the select county`); 
+      console.log(`${selectedCounty} is the select county`); 
   });
 });
 
@@ -615,3 +564,4 @@ function bubbleOverTime(){
   whichBubbleBuilder();
   };
 
+  
