@@ -297,12 +297,14 @@ function newYBubble(new_y){
   selected_yAxis = new_y
   console.log(`${selected_yAxis} is the new y axis selection`);
   buildBubbleChart(selectedYear, selected_xAxis, selected_yAxis);
+  MapApiCall(selected_yAxis, selectedYear)
 }
 
 function newYearBubble(new_year){
   selectedYear = new_year
   console.log(`${selectedYear} is the new year selection`);
   buildBubbleChart(selectedYear, selected_xAxis, selected_yAxis);
+  MapApiCall(selected_yAxis, selectedYear)
 }
 
 
@@ -325,12 +327,15 @@ function stateHighlight(){
   console.log(`State changed to ${selectedState}`);
   console.log(`State status changed to ${stateView}`);
   buildBubbleChart(selectedYear, selected_xAxis, selected_yAxis);
+  MapApiCall(selected_yAxis, selectedYear);
+  
 }
 
 function stateAll(){
   stateView = "all"
   console.log(`State status changed to ${stateView}`);
-  buildBubbleChart(selectedYear, selected_xAxis, selected_yAxis) ;
+  buildBubbleChart(selectedYear, selected_xAxis, selected_yAxis);
+  MapApiCall(selected_yAxis, selectedYear);
 }
 
 
