@@ -8,7 +8,7 @@ var selected_xAxis = "median_income";
 var selected_yAxis = "median_home_value";
 var stateView = "all";
 var selectedState = "Illinois";
-var selectedCountyState = "Cook County_Illinois";
+var selectedCounty = "Cook County_Illinois";
 var selectedGeo = "0500000US17031";
 
 // value to enable year time series view of bubble chart
@@ -98,6 +98,7 @@ function buildBubbleChart(year, x, y) {
     pop_size_list = [];
     county_st_list = [];
     geo_id_list = [];
+    bubble_colors = [];
 
     // arrays for plotting selected states
     x_axis_list_state = [];
@@ -106,6 +107,7 @@ function buildBubbleChart(year, x, y) {
     pop_size_list_state = [];
     county_st_list_state = [];
     geo_id_list_state = [];
+    bubble_colors_state = [];
 
     // populate arrays differently, controlling for if the user is looking at all states, highlighting a state, or isolating a state
     data.forEach(d => {
@@ -116,7 +118,16 @@ function buildBubbleChart(year, x, y) {
         pop_size_list.push(d["population"] * .0003);
         county_st_list.push(d["county_state"]);
         geo_id_list.push(d['geo_id']);
+        
+        // pushes highlighted color if selected county_state
+          if (d["geo_id"] == selectedGeo){
+            bubble_colors.push("#cb8763")
+          }
+          else {
+            bubble_colors.push("#1f77b4")
+          }   
       }
+
       else if ((d["state"] != selectedState) && (stateView == "highlight")){
           x_axis_list.push(d[x]);
           y_axis_list.push(d[y]);
@@ -124,7 +135,16 @@ function buildBubbleChart(year, x, y) {
           pop_size_list.push(d["population"] * .0003);
           county_st_list.push(d["county_state"]);
           geo_id_list.push(d['geo_id']);
-        }
+
+          // pushes highlighted color if selected county_state
+          if (d["geo_id"] == selectedGeo){
+            bubble_colors.push("#cb8763")
+          }
+          else {
+            bubble_colors.push("#7f7f7f")
+          }   
+      }
+
       else if (d["state"] == selectedState){
         x_axis_list_state.push(d[x]);
         y_axis_list_state.push(d[y]);
@@ -132,7 +152,16 @@ function buildBubbleChart(year, x, y) {
         pop_size_list_state.push(d["population"] * .0003);
         county_st_list_state.push(d["county_state"]);
         geo_id_list_state.push(d['geo_id']);
+
+          // pushes highlighted color if selected county_state
+          if (d["geo_id"] == selectedGeo){
+            bubble_colors_state.push("#cb8763")
+          }
+          else {
+            bubble_colors_state.push("#63a3cb")
+          }   
       }
+
     });
 
     // convert axis titles to friendly name
@@ -142,11 +171,11 @@ function buildBubbleChart(year, x, y) {
 
     // creates varations of display for state all, highlight, and isolate views
     if (stateView == "all"){
-      var color = "#1f77b4";
+      // var color = "#1f77b4";  //commented out as colors calculated elsewhere
       var name = "All States";
     }
     else {
-      var color = "#7f7f7f";
+      // var color = "#7f7f7f";   //commented out as colors calculated elsewhere
       var name = "Other States";
     }
 
@@ -216,7 +245,7 @@ function buildBubbleChart(year, x, y) {
         marker: {
           size: pop_size_list,
           sizemode: 'area',
-          color: color,
+          color: bubble_colors,
           },
         name: name
       },
@@ -228,7 +257,7 @@ function buildBubbleChart(year, x, y) {
         marker: {
           size: pop_size_list_state,
           sizemode: 'area',
-          color: "#ff7f0e",
+          color: bubble_colors_state,
           },
         name: selectedState
       }
@@ -271,7 +300,8 @@ function buildBubbleChart(year, x, y) {
       // update the county card and time series by calling functions with the new geo
       newCountyTimeSeries(selectedGeo);  //updates time series
       county_select(selectedGeo);  // updates card
-      mapHighlight(mapLayersDict[selectedGeo])
+      mapHighlight(mapLayersDict[selectedGeo]);
+      buildBubbleChart(selectedYear, selected_xAxis, selected_yAxis);
   });
 });
 
@@ -297,14 +327,12 @@ function newYBubble(new_y){
   selected_yAxis = new_y
   console.log(`${selected_yAxis} is the new y axis selection`);
   buildBubbleChart(selectedYear, selected_xAxis, selected_yAxis);
-  MapApiCall(selected_yAxis, selectedYear)
 }
 
 function newYearBubble(new_year){
   selectedYear = new_year
   console.log(`${selectedYear} is the new year selection`);
   buildBubbleChart(selectedYear, selected_xAxis, selected_yAxis);
-  MapApiCall(selected_yAxis, selectedYear)
 }
 
 
@@ -327,15 +355,12 @@ function stateHighlight(){
   console.log(`State changed to ${selectedState}`);
   console.log(`State status changed to ${stateView}`);
   buildBubbleChart(selectedYear, selected_xAxis, selected_yAxis);
-  MapApiCall(selected_yAxis, selectedYear);
-  
 }
 
 function stateAll(){
   stateView = "all"
   console.log(`State status changed to ${stateView}`);
-  buildBubbleChart(selectedYear, selected_xAxis, selected_yAxis);
-  MapApiCall(selected_yAxis, selectedYear);
+  buildBubbleChart(selectedYear, selected_xAxis, selected_yAxis) ;
 }
 
 

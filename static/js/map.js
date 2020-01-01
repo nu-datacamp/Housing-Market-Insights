@@ -122,7 +122,9 @@ function MapApiCall(mapVariable, mapYear) {
       layer.on('click', function() {
         county_select(mapFeatureID);
         mapHighlight(layer);
-        newCountyTimeSeries(mapFeatureID)
+        newCountyTimeSeries(mapFeatureID);
+        selectedGeo = mapFeatureID;
+        buildBubbleChart(selectedYear, selected_xAxis, selected_yAxis);
         // console.log(layer)
       });
       mapLayersDict[mapFeatureID] = layer;
