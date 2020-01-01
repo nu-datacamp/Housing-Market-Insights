@@ -250,7 +250,23 @@ function buildBubbleChart(year, x, y) {
       clickedCounty = data.points[0].text;
       selectedCounty = stateCountyConvert(clickedCounty);
       console.log(`${selectedCounty} is the select county`); 
-      selectedGeo = (geo_id_list[data.points[0].pointIndex])
+      console.log(data.points)
+
+      // grabs the value of the specific state clicked
+      clickedState = selectedCounty.split("_")
+      clickedState = clickedState[1]
+      console.log(clickedState)
+
+      if ((clickedState == selectedState) && (stateView != "all")){
+        selectedGeo = (geo_id_list_state[data.points[0].pointIndex])
+        }
+      else if ((clickedState != selectedState) && (stateView != "all")){
+        selectedGeo = (geo_id_list[data.points[0].pointIndex])
+        }
+      else if (stateView == "all"){
+        selectedGeo = (geo_id_list[data.points[0].pointIndex])
+        }
+
       console.log(`${selectedGeo} is the select geoID`); 
       // update the county card and time series by calling functions with the new geo
       newCountyTimeSeries(selectedGeo);  //updates time series
@@ -281,14 +297,12 @@ function newYBubble(new_y){
   selected_yAxis = new_y
   console.log(`${selected_yAxis} is the new y axis selection`);
   buildBubbleChart(selectedYear, selected_xAxis, selected_yAxis);
-  MapApiCall(selected_yAxis, selectedYear)
 }
 
 function newYearBubble(new_year){
   selectedYear = new_year
   console.log(`${selectedYear} is the new year selection`);
   buildBubbleChart(selectedYear, selected_xAxis, selected_yAxis);
-  MapApiCall(selected_yAxis, selectedYear)
 }
 
 
