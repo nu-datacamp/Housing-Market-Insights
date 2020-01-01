@@ -116,7 +116,9 @@ def county4(county, year):
 def map_route(variable, year):
     """Return a list of sample names."""
     # Use Pandas to perform the sql query
-    results = pd.read_sql(f"select geo_id, {variable}, year, county from housing where year = {year}", db.session.bind)
+    results = pd.read_sql(f"select geo_id, {variable}, year, state, county from housing where year = {year}", db.session.bind)
+    if results[f'{variable}'].dtypes == 'int64':
+        results[f'{variable}'] = results[f'{variable}'].astype(float)
     results = results.set_index("geo_id")
     json1 = results.to_json(orient='index')
     min1 = results[f'{variable}'].min()
