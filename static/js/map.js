@@ -179,7 +179,7 @@ function MapApiCall(mapVariable, mapYear) {
   };
   legend1.addTo(myMap);
 
-  mapHighlight(mapLayersDict['0500000US17031'])
+  mapHighlight(mapLayersDict[selectedGeo])
   });
 };
 
