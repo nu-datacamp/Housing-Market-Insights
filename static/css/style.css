@@ -19,6 +19,7 @@ html {
 }
 
 .legend {
+  text-transform: capitalize;
   line-height: 18px;
   color: #555;
 }

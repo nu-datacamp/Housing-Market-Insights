@@ -1,7 +1,7 @@
 // console.log('geo json import!!!!', geoJson);
 var mapApiData;
-var mapVariable = 'median_rent';
-var mapYear = '2015';
+var mapVariable = 'median_home_value';
+var mapYear = '2017';
 var mapMin;
 var mapMax;
 var mapInterval;
@@ -13,6 +13,8 @@ var mapHighlightStyle = {
 };
 var mapSelectedCounty;
 var myMap;
+var mapSelectedCountyName;
+var mapSelectedCountyState;
 
 function mapHighlight (layer) {
   // Check if something's highlighted, if so unset highlight
@@ -29,6 +31,9 @@ function mapHighlight (layer) {
   layer.bringToFront();
   myMap.fitBounds(layer.getBounds());
   mapSelectedCounty = layer;
+  mapSelectedCountyName = mapApiData[`${layer.feature.properties.GEO_ID}`]['county'];
+  mapSelectedCountyState = mapApiData[`${layer.feature.properties.GEO_ID}`]['state'];
+  mapNameLegend(mapSelectedCountyName, mapSelectedCountyState, myMap)
 };
 
 function mapUnHighlight (layer) {
@@ -37,6 +42,17 @@ function mapUnHighlight (layer) {
   layer.bringToBack();
   mapSelectedCounty = null;
 };
+
+var legend2 = L.control({position: 'bottomleft'});
+
+function mapNameLegend(mapSelectedCountyName, mapSelectedCountyState, myMap) {
+  legend2.onAdd = function(myMap) {
+    var div2 = L.DomUtil.create('div', 'info legend');
+    div2.innerHTML = `<h5>${mapSelectedCountyName}</h5><h5>${mapSelectedCountyState}</h5>`
+    return div2;
+  }
+  legend2.addTo(myMap);
+}
 // var MmCall = d3.json(`/map/${mapVariable}/${mapYear}/min_max`).then(data => {
 //   mapMin = data.min;
 //   mapMax = data.max;
@@ -44,15 +60,18 @@ function mapUnHighlight (layer) {
 // });
 
 function MapApiCall(mapVariable, mapYear) {
-  d3.json(`/map/${mapVariable}/${mapYear}`).then(mapApiData => { 
-  mapMin = mapApiData['min_max']['min'];
-  mapMax = mapApiData['min_max']['max'];
+  document.getElementById('leafletmap').innerHTML = "<div id='map'></div>";
+  d3.json(`/map/${mapVariable}/${mapYear}`).then(ApiData => { 
+  mapApiData = ApiData;
+  mapMin = ApiData['min_max']['min'];
+  mapMax = ApiData['min_max']['max'];
   mapInterval = (mapMax - mapMin) / 5;
 
   // Define streetmap and darkmap layers
   var streets = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
   attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-  maxZoom: 8,
+  maxZoom: 7,
+  minZoom: 4,
   id: "mapbox.light",
   accessToken: API_KEY
   });
@@ -89,11 +108,13 @@ function MapApiCall(mapVariable, mapYear) {
     // console.log(feature.properties.GEO_ID);
     var mapFeatureID = `${feature.properties.GEO_ID}`;
     var mapFeaureVariable = `${mapVariable}`;
-    if (mapApiData[mapFeatureID]) {
-      // console.log(mapApiData[`${feature.properties.GEO_ID}`][`${mapVariable}`]);    
+    if (ApiData[mapFeatureID]) {
+      // console.log(mapApiData[`${feature.properties.GEO_ID}`][`${mapVariable}`]); 
+      mapSelectedCountyName = ApiData[mapFeatureID]['county'];
+      mapSelectedCountyState = ApiData[mapFeatureID]['state'];
       layer.setStyle({
-        fillColor : mapColor(mapApiData[mapFeatureID][mapFeaureVariable]),
-        color : mapColor(mapApiData[mapFeatureID][mapFeaureVariable]),
+        fillColor : mapColor(ApiData[mapFeatureID][mapFeaureVariable]),
+        color : mapColor(ApiData[mapFeatureID][mapFeaureVariable]),
         weight : .75,
         fillOpacity : 0.65
       });
@@ -139,27 +160,28 @@ function MapApiCall(mapVariable, mapYear) {
 
   L.control.layers(baseMaps, overlayMaps).addTo(myMap);
   
-  var legend = L.control({position: 'bottomright'});
+  var legend1 = L.control({position: 'bottomright'});
 
-  legend.onAdd = function(myMap) {
+  legend1.onAdd = function(myMap) {
 
     var div1 = L.DomUtil.create('div', 'info legend'),
       grades = [Math.round(mapMin),Math.round(mapMin + mapInterval),Math.round(mapMin + (2 * mapInterval)),Math.round(mapMin + (3 * mapInterval)),Math.round(mapMin + (4 * mapInterval))],
       labels = [];
     
-    div1.innerHTML += `<h5>${friendlyName(mapVariable)}</h5><h5>${mapYear}</h5>`  
+    div1.innerHTML += `<h4>${friendlyName(mapVariable)}</h4><h5>${mapYear}</h5>`  
     // loop through our density intervals and generate a label with a colored square for each interval
     for (var i = 0; i < grades.length; i++) {
       div1.innerHTML +=
-        '<i style="background:' + mapColor(grades[i]+10) + '"></i> ' +
+        '<i style="background:' + mapColor(grades[i]+0.5) + '"></i> ' +
         grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
     }
     return div1;
   };
+  legend1.addTo(myMap);
 
-  legend.addTo(myMap);
-  mapHighlight(mapLayersDict['0500000US17031'])
-  })
+  mapHighlight(mapLayersDict[selectedGeo])
+  });
 };
 
 MapApiCall(mapVariable, mapYear);
+

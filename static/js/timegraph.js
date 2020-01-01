@@ -76,10 +76,10 @@ function buildChart(county, var1, var2, var3) {
   selected_var1 = var1
   selected_var2 = var2
   selected_var3 = var3
-  console.log(`current selected county is ${county}`)
-  console.log(`current selected variable 1 is ${var1}`)
-  console.log(`current selected variable 2 is ${var2}`)
-  console.log(`current selected variable 3 is ${var3}`)
+  // console.log(`current selected county is ${county}`)
+  // console.log(`current selected variable 1 is ${var1}`)
+  // console.log(`current selected variable 2 is ${var2}`)
+  // console.log(`current selected variable 3 is ${var3}`)
 
   d3.json(`/timeseries/${county}`).then((data) => {
     //const median_income = data.median_income;
