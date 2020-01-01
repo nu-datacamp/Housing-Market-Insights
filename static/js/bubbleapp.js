@@ -12,9 +12,20 @@ var selectedCountyState = "Cook County_Illinois";
 var selectedGeo = "0500000US17031";
 
 // value to enable year time series view of bubble chart
-var loopThroughYear = false
+var loopThroughYear = false;
 
+//Shit for me (Neil) to get the highlight to work
+var bubbleMapDataDict = {};
+var incrememtorizer = 0;
+var color_list = [];
+var pop_size_list = [];
 
+function bubbleHightlight (pointNumber) {
+  color_list[pointNumber] = '#C54C82';
+  var update = {'marker': {color: color_list, size: pop_size_list, sizemode:'area'}};
+  Plotly.restyle('bubble', update, [0]);
+  color_list[pointNumber] = '#1f77b4';
+};
 
 //*******************************************************************************************
 //  FRIENDLY NAME CONVERTER
@@ -90,12 +101,11 @@ buildBubbleChart(selectedYear, selected_xAxis, selected_yAxis);
 // Builds the bubble chart
 function buildBubbleChart(year, x, y) {
   d3.json(`/bubble/${year}/${x}/${y}`).then((data) => {
-
+    bubbleMapData = data;
     // arrays for plotting non selected states
     x_axis_list = [];
     y_axis_list = [];
     county_labels_list = [];
-    pop_size_list = [];
     county_st_list = [];
     geo_id_list = [];
 
@@ -110,6 +120,9 @@ function buildBubbleChart(year, x, y) {
     // populate arrays differently, controlling for if the user is looking at all states, highlighting a state, or isolating a state
     data.forEach(d => {
       if (stateView == "all"){
+        bubbleMapDataDict[d['geo_id']] = incrememtorizer;
+        incrememtorizer += 1;
+        color_list.push("1f77b4");
         x_axis_list.push(d[x]);
         y_axis_list.push(d[y]);
         county_labels_list.push(d["county"] + ", " + d["state"]);
@@ -212,11 +225,12 @@ function buildBubbleChart(year, x, y) {
         x: x_axis_list,
         y: y_axis_list,
         text: county_labels_list,
+        type: 'scatter',
         mode: "markers",
         marker: {
           size: pop_size_list,
           sizemode: 'area',
-          color: color,
+          color: color_list,
           },
         name: name
       },
@@ -224,6 +238,7 @@ function buildBubbleChart(year, x, y) {
         x: x_axis_list_state,
         y: y_axis_list_state,
         text: county_labels_list_state,
+        type: 'scatter',
         mode: "markers",
         marker: {
           size: pop_size_list_state,
@@ -249,13 +264,34 @@ function buildBubbleChart(year, x, y) {
     myBubblePlot.on('plotly_click', function(data){
       clickedCounty = data.points[0].text;
       selectedCounty = stateCountyConvert(clickedCounty);
-      console.log(`${selectedCounty} is the select county`); 
-      console.log(data.points)
+      // console.log(`${selectedCounty} is the select county`); 
+      console.log(data);
 
       // grabs the value of the specific state clicked
-      clickedState = selectedCounty.split("_")
-      clickedState = clickedState[1]
-      console.log(clickedState)
+      clickedState = selectedCounty.split("_");
+      clickedState = clickedState[1];
+      // console.log(clickedState);
+
+      // var pn='',
+      // tn='',
+      // colors=[];
+      // // sizes =[],
+      // // keep_size;
+      // for(var i=0; i < data.points.length; i++){
+      //   pn = data.points[i].pointNumber;
+      //   tn = data.points[i].curveNumber;
+      //   colors = data.points[i].data.marker.color;
+      //   // sizes = data.points[i].data.marker.size
+      //   // keep_size = data.points[i].data.marker.size[pn]
+      // };
+      // console.log(colors);
+      // colors[pn] = '#C54C82';
+      // console.log(colors[pn]);
+      // // sizes[pn] = keep_size;
+
+      // var update = {'marker': {color: colors, size: pop_size_list, sizemode:'area'}};
+      // Plotly.restyle('bubble', update, [tn]);
+      // colors[pn] = '#1f77b4';
 
       if ((clickedState == selectedState) && (stateView != "all")){
         selectedGeo = (geo_id_list_state[data.points[0].pointIndex])
@@ -267,11 +303,12 @@ function buildBubbleChart(year, x, y) {
         selectedGeo = (geo_id_list[data.points[0].pointIndex])
         }
 
-      console.log(`${selectedGeo} is the select geoID`); 
       // update the county card and time series by calling functions with the new geo
       newCountyTimeSeries(selectedGeo);  //updates time series
       county_select(selectedGeo);  // updates card
-      mapHighlight(mapLayersDict[selectedGeo])
+      mapHighlight(mapLayersDict[selectedGeo]);
+      bubbleHightlight(data.points[0].pointNumber);
+
   });
 });
 
