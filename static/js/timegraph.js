@@ -149,7 +149,7 @@ function buildChart(county, var1, var2, var3) {
       trace3.y.push(val[var3]);
     });
 
-    
+    var NewCountyState = data["0"].county_state.replace(/_/g,", ")
 
     var data = [trace1, trace2, trace3];
     console.log(data)
@@ -157,7 +157,7 @@ function buildChart(county, var1, var2, var3) {
     var layout = {
       plot_bgcolor:"white",
       title: {
-        text: friendlyName(var1) + ", " +  friendlyName(var2) +  ", and <br> " + friendlyName(var3) + " Over Time",
+        text: friendlyName(var1) + ", " +  friendlyName(var2) +  ", and <br> " + friendlyName(var3) + " Over Time in " + NewCountyState,
         font:{size:16},
         y:0.92
       },
@@ -278,5 +278,11 @@ function newCountyTimeSeries(new_county){
   selected_county = new_county
   console.log(`${selected_var3} is the new variable 3 selection`);
   //buildCharts(selected_county, selected_var1, selected_var2, selected_var3);
+  ChartBuilder()
+}
+
+function county_select(new_county){
+  selected_county = new_county
+  console.log(`County changed to ${new_county}`)
   ChartBuilder()
 }
