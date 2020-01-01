@@ -166,14 +166,14 @@ function MapApiCall(mapVariable, mapYear) {
 
     var div1 = L.DomUtil.create('div', 'info legend'),
       grades = [Math.round(mapMin),Math.round(mapMin + mapInterval),Math.round(mapMin + (2 * mapInterval)),Math.round(mapMin + (3 * mapInterval)),Math.round(mapMin + (4 * mapInterval))],
-      labels = [];
+      labels = [Number(Math.round(mapMin)).toLocaleString(),Number(Math.round(mapMin + mapInterval)).toLocaleString(),Number(Math.round(mapMin + 2*mapInterval)).toLocaleString(),Number(Math.round(mapMin + 3*mapInterval)).toLocaleString(),Number(Math.round(mapMin + 4*mapInterval)).toLocaleString()];
     
     div1.innerHTML += `<h4>${friendlyName(mapVariable)}</h4><h5>${mapYear}</h5>`  
     // loop through our density intervals and generate a label with a colored square for each interval
     for (var i = 0; i < grades.length; i++) {
       div1.innerHTML +=
         '<i style="background:' + mapColor(grades[i]+0.5) + '"></i> ' +
-        grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+        labels[i] + (labels[i + 1] ? '&ndash;' + labels[i + 1] + '<br>' : '+');
     }
     return div1;
   };
