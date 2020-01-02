@@ -105,7 +105,7 @@ function buildTable(county) {
     console.log(data) 
         //Dot chart
         
-        var attributes = [`<b>Population</b>: ${pop} `,`<b>Total Housing Units</b>: ${total_housing_units} `,`<b>Median Income</b>: ${median_income} `,`<b>Median Home Value</b>: ${median_home_value} `,`<b>Value-Income Ratio</b>: ${value_to_income} `,`<b>Median Rent</b>: ${median_rent} `,`<b>Median Rooms</b>: ${median_rooms} `,`<b>Units Owned</b>: ${owned} `,`<b>Units Occupied</b>: ${occupied} `]
+        var attributes = [`<b>Population</b>: ${pop} `,`<b>Total Housing Units</b>: ${total_housing_units} `,`<b>Median Income</b>: ${median_income} `,`<b>Median Home Value</b>: ${median_home_value} `,`<b>Price-to-Income Ratio</b>: ${value_to_income} `,`<b>Median Rent</b>: ${median_rent} `,`<b>Median Rooms</b>: ${median_rooms} `,`<b>Units Owned</b>: ${owned} `,`<b>Units Occupied</b>: ${occupied} `]
         var percentiles = [per_pop,per_housing,per_income,per_homevalue,per_valueincome,per_rent,per_rooms,per_owned,per_occupied];
         var values = [pop, total_housing_units,median_income, median_home_value, value_to_income, median_rent, median_rooms, owned, occupied];
 
@@ -115,8 +115,7 @@ function buildTable(county) {
           y: attributes,
           mode: 'markers',
           name: 'Percentile',
-          hovertemplate:
-        '%{x}',
+          hovertemplate: '%{x}',
         hoverinfo:'skip',  
         marker: {
             color: percentiles, cmin: 0, cmax: 100,
