@@ -252,6 +252,7 @@ function buildBubbleChart(year, x, y) {
         x: x_axis_list_state,
         y: y_axis_list_state,
         text: county_labels_list_state,
+        hovertemplate: '<b>%{text}</b> <br>' + friendlyName(x) + ': %{x} <br>' + friendlyName(y) + ': %{y}',
         mode: "markers",
         marker: {
           size: pop_size_list_state,
