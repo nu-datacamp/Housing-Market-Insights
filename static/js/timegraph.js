@@ -233,7 +233,7 @@ function buildChart(county, var1, var2, var3) {
         anchor: 'free',
         overlaying: 'y',
         side: 'right',
-        position: 1,
+        position: 0.95,
         showgrid: false,
         //rangemode:'tozero'  
 
