@@ -171,11 +171,9 @@ function buildBubbleChart(year, x, y) {
 
     // creates varations of display for state all, highlight, and isolate views
     if (stateView == "all"){
-      // var color = "#1f77b4";  //commented out as colors calculated elsewhere
       var name = "All States";
     }
     else {
-      // var color = "#7f7f7f";   //commented out as colors calculated elsewhere
       var name = "Other States";
     }
 
@@ -279,7 +277,6 @@ function buildBubbleChart(year, x, y) {
       clickedCounty = data.points[0].text;
       selectedCounty = stateCountyConvert(clickedCounty);
       console.log(`${selectedCounty} is the select county`); 
-      console.log(data.points)
 
       // grabs the value of the specific state clicked
       clickedState = selectedCounty.split("_")
@@ -297,11 +294,12 @@ function buildBubbleChart(year, x, y) {
         }
 
       console.log(`${selectedGeo} is the select geoID`); 
+      
       // update the county card and time series by calling functions with the new geo
       newCountyTimeSeries(selectedGeo);  //updates time series
       county_select(selectedGeo);  // updates card
-      mapHighlight(mapLayersDict[selectedGeo]);
-      buildBubbleChart(selectedYear, selected_xAxis, selected_yAxis);
+      mapHighlight(mapLayersDict[selectedGeo]);  // updates map
+      buildBubbleChart(selectedYear, selected_xAxis, selected_yAxis);  // reruns bubble chart
   });
 });
 
@@ -343,23 +341,24 @@ function newYearBubble(new_year){
 
 function stateIsolate(){
   stateView = "isolate"
-  selectedState = d3.select("#stateSelector").property("value");
-  console.log(`State changed to ${selectedState}`);
-  console.log(`The current selected state is ${stateView}`);
+  userEnteredState = d3.select("#stateSelector").property("value");
+  selectedState = _.startCase(userEnteredState);
+  // console.log(`The user entered ${userEnteredState}`);
+  // console.log(`State changed to ${selectedState}`);
   buildBubbleChart(selectedYear, selected_xAxis, selected_yAxis);
 }
 
 function stateHighlight(){
   stateView = "highlight"
-  selectedState = d3.select("#stateSelector").property("value");
-  console.log(`State changed to ${selectedState}`);
-  console.log(`State status changed to ${stateView}`);
+  userEnteredState = d3.select("#stateSelector").property("value");
+  selectedState = _.startCase(userEnteredState);
+  // console.log(`The user entered ${userEnteredState}`);
+  // console.log(`State changed to ${selectedState}`);
   buildBubbleChart(selectedYear, selected_xAxis, selected_yAxis);
 }
 
 function stateAll(){
   stateView = "all"
-  console.log(`State status changed to ${stateView}`);
   buildBubbleChart(selectedYear, selected_xAxis, selected_yAxis) ;
 }
 
