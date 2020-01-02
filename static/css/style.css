@@ -30,3 +30,30 @@ html {
   margin-right: 8px;
   opacity: 0.7;
 }
+
+.navbar {
+  min-height: 125px;
+  background-color: #6dbdb0;
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar-brand { 
+  float: none;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 35px; 
+}
+
+.navbar-sub {
+  font-weight: 600;
+  margin-bottom: auto;
+  font-size: 19px; 
+  float: none;
+  position: absolute;
+  top: 77%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
