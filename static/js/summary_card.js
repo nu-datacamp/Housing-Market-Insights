@@ -1,58 +1,3 @@
-//*******************************************************************************************
-//  CONTROL FOR WHAT IS SELECTED
-//  starts at these values, as user changes selections they will update
-//*******************************************************************************************
-
-// selected_var1 = "median_home_value";
-// selected_var2 = "median_income";
-// selected_var3 = "population"
-
-//*******************************************************************************************
-//  FRIENDLY NAME CONVERTER
-//  Converts database SQL column names to friendly syntax for users
-//*******************************************************************************************
-
-
-function friendlyName(i){
-  if (i == "total_housing_units") {
-    return "Total Housing Units";
-  }
-  else if (i == "total_housing_units_occupied") {
-    return  "Total Housing Units (Occupied)";
-  }
-  else if (i == "median_rooms") {
-    return  "Median Rooms";
-  }
-  else if (i == "owner_occupied_units") {
-    return  "Owner Occupied Units";
-  }
-  else if (i == "renter_occupied_units") {
-    return  "Renter Occupied Units";
-  }
-  else if (i == "median_home_value") {
-    return  "Median Home Value";
-  }
-  else if (i == "median_rent") {
-    return  "Median Rent";
-  }
-  else if (i == "monthly_cost_with_mortgage") {
-    return  "Monthly Cost - With Mortgage";
-  }
-  else if (i == "monthly_cost_no_mortgage") {
-    return  "Monthly Cost - No Mortgage";
-  }
-  else if (i == "median_income") {
-    return  "Median Income";
-  }
-  else if (i == "population") {
-    return  "Population";
-  }
-}
-
-//*******************************************************************************************
-//  BUILD TIME SERIES CHARTS FUNCTION
-//  for initial load and which state view is desired
-//*******************************************************************************************
 
 // Reference: https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
 function numberWithCommas(x) {
@@ -196,7 +141,7 @@ function buildTable(county) {
           hovermode: 'closest'
         };
         
-        Plotly.newPlot('summary-card', data, layout);
+        Plotly.newPlot('summary-card', data, layout, {responsive: true});
 
       
 
