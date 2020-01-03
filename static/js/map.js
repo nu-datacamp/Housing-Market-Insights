@@ -9,7 +9,7 @@ mapLayersDict = {};
 var mapDefaultStyle;
 var mapHighlightStyle = {
   color : '#774947',
-  weight : 3.5,
+  weight : 1.8,
 };
 var mapSelectedCounty;
 var myMap;
