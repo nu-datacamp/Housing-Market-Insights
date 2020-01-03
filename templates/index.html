@@ -33,14 +33,40 @@
     <br>
     <br>
 
+    <div class="row-fluid justify-content-center">
+      <div class="col-lg-3">
+        <h4><u>Background</u></h4>
+        <p>According to the Joint Center for Housing Studies (JCHS) at Harvard University, there has been a steady increase in home price-to-income ratios over the last several decades. Homes are getting more expensive, but income has not kept up. As the population grows, the demand for housing also grows. </p>   
+        </div>
+        <div class="col-lg-3">
+          <br>
+          <br>
+          <p>In this housing analysis, we set out to create a web-based app that allows users to i) get an overview of a given county’s housing and economic metrics, and ii) evaluate relationships between different housing and economic factors over time and across different areas of the country.</p>
+          </div>
+        <div class="col-lg-2">
+          <br>
+          <br>
+          <p>This web app was made by four guys who enjoy sandwiches - one of whom really loves them. For more technical information, please see <a href="https://github.com/nu-datacamp/Housing-Market-Insights/blob/master/ETL%20Technical%20Report.md" target="_blank">this ETL.</a></p>
+        </div>
+     <div class="col-lg-4" align="center"> 
+      <h4><u>Summary Card</u></h4>
+      <p>The <b>summary card</b> below provides a quick overview of a county. The percentile represents where a county’s specific metric (e.g. population) is, in relation to the 3,000+ counties in the US. A dot in the middle would represent the 50th percentile mark, or the median, i.e., “middle-of-the-pack”. A dot all the way to the right, or near the 100th percentile, would mean the value is higher than almost all other counties.</p> 
 
-    <div class="row justify-content-center">
+    </div>
+
+    <div class="row-fluid justify-content-center">
+      <div class="col-lg-12">
+    <h4><b>Click on any county on the map to get started, or start with Cook County by default.</b></h4>  
+      </div>
+    </div>
+
+
+    <div class="row-fluid justify-content-center">
       <div id="leafletmap" class="col-lg-8 col-md-9">
         <div id='map'></div>
       </div>
       <div class="col-lg-4">
-        <p>Summary Card (col-lg-2) Click on any county shown on the map to generate a summary below. The (insert description) blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah Vero tota consequuntur sed et. Ex euismod contentiones has, at nec error semper malorum. Solet temporibus sed no. Mel vivendum concludaturque ne, feugiat voluptua explicari pro ut</p>
-        <div id="summary-card"></div>
+       <div id="summary-card"></div>
         
       </div>
     </div>
@@ -52,33 +78,27 @@
           <div align="center"> -->
 
 
-        <div class="col-lg-9">
-          <p>Place holder (col-lg-9) something about the map above?</p>
+        <div class="col-lg-8">
+          <br>
+          <br>
+          <p>The <b>bubble plot</b> and <b>time graph</b> below show how the different metrics correlate with each other, and how they trend over time. Select a year of interest or click on the <b>Play Over Time</b> button to see how the pattern changes over time. 
+            The current county on the map is highlighted in orange. Mouse-over individual bubbles to see the county name, state, median income and median home value. 
+            To find out more about a bubble/county, click on it to update the time graph and summary card. The map will also update to show where the county is.
+            </p>
+          <br>
         </div>
 
        
         
         
-        <div class="col-lg-3">
+        <div class="col-lg-4">
           <!-- <img src="../images/rent_cartoon.png" alt="rent"> -->
-          <p>Place Holder (col-lg-3) something about the summary card above?</p>
         </div>   
 
-      <br>
-      <br>
-
-      <div class="row justify-content-center">
-          <!-- <div align="center"></div> -->
-          <br>
+      <div class="row-fluid justify-content-center">
         <div class="col-lg-9">
-          <p align="left">Summary (col-lg-9) something about the menu and the plot below Lorem ipsum dolor sit amet, partem alterum deterruisset pro eu, id usu mutat nostro accusam. Vero tota consequuntur sed et. Ex euismod contentiones has, at nec error semper malorum. Solet temporibus sed no. Mel vivendum concludaturque ne, feugiat voluptua explicari pro ut, duo ex meis paulo copiosae. Mei et novum partem imperdiet, amet persequeris eam id. Congue impetus delectus in pri, qui eu tollit civibus.</p>
         </div>
-        <!-- <div class="col-lg-6">
-          <p>Summary (col-lg-6) something something something</p>
-        </div> -->
-        <div class="col-lg-3">
-          <p align="left">Summary (col-lg-3) Extra stuff Lorem ipsum dolor sit amet, partem alterum deterruisset pro eu</p>
-        </div>
+        <br>
       </div>
       </div>
       
@@ -89,7 +109,7 @@
 
 
 <div class="container-fluid">
-  <div class="row">
+  <div class="row-fluid">
 
   <!-- start of select year, x and y axis html -->
   <div class="col-md-3">
@@ -138,7 +158,7 @@
     </aside>
 
     <aside class="filters">
-      <div class="panel panel-success">
+      <div class="panel panel-info">
         <div class="panel-heading"><strong>Select X Axis (Variable 1)</strong></div>
         <div class="panel-body">
           <select id="xAxisSelection" onchange="newXBubble(this.value); NewVar2(this.value);">
@@ -160,7 +180,7 @@
     </aside>
 
     <aside class="filters">
-      <div class="panel panel-info">
+      <div class="panel panel-success">
         <div class="panel-heading"><strong>Select Y Axis (Variable 2)</strong></div>
         <div class="panel-body">
           <select id="yAxisSelection" onchange="newYBubble(this.value); NewVar1(this.value);">
@@ -219,17 +239,31 @@
   </div>
   
   <div class="col-md-3">
-    <p>Lorem ipsum dolor sit amet, partem alterum deterruisset pro eu, id usu mutat nostro accusam. Vero tota consequuntur sed et. Ex euismod contentiones has, at nec error semper malorum. Solet temporibus sed no. Mel vivendum concludaturque ne, feugiat voluptua explicari pro ut, duo ex meis paulo copiosae. Mei et novum partem imperdiet, amet persequeris eam id. Congue impetus delectus in pri, qui eu tollit civibus.</p>
+    <br>
+    <h4><u>Bubble Plot</u></h4>
+    <p><i>How to use:</i>
+      Use the <b>State Filters</b>, type in a state name, and click on either <b>Highlight</b> or <b>Isolate</b> counties from a specific state. Click on the <b>Show All States</b> button to reset to default view.
+      </p>
     <p> </p>
-    <p>Lorem ipsum dolor sit amet, partem alterum deterruisset pro eu, id usu mutat nostro accusam. Vero tota consequuntur sed et. Ex euismod contentiones has, at nec error semper malorum. Solet temporibus sed no. Mel vivendum concludaturque ne, feugiat voluptua explicari pro ut, duo ex meis paulo copiosae. Mei et novum partem imperdiet, amet persequeris eam id. Congue impetus delectus in pri, qui eu tollit civibus.</p>
+    <p>Use the pull down menu on the left to select any combination of variables that you are interested in. Variable 1 and 2 are used in both the bubble plot and the time graph.</p>
     <p> </p>
-    <p>sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches sandwiches </p>
-    <p> </p>
-    <p> more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches more sandwiches </p>
-  </div>
+    <p><i>Explanation</i>:
+      The bubble plot shows how the different metrics correlate with each other.The size of the bubble corresponds to the population of the county. The bigger the circle, the more people live in that county. For example, the default highlighted bubble (Cook County) has a Median Income around 60K, with a Median Home Value of around 0.2Million, or $200,000 dollars. Cook County is also one of the relatively larger bubbles, which means it’s one of the more densely-populated counties.
+      Based on the bubble plot, the Median Home Value appears to be positively correlated with Median Income.
+      </p>
+      <br>
+      <br>
+      <h4><u>Time Graph</u></h4>
+      <p><i>How to use:</i>
+        Select metrics of interest using the <b>drop-down menu</b> on the left. The colors of the menu correspond to the line colors on the graph. <b>Mouse-over</b> the graph to see the values at different years, from 2010 to 2017. Click on any metrics listed in the legend to make it disappear or reappear on the graph. The y-axes represent the values corresponding to each trend line of the same color.
+        </p>
+      <p> </p>
+      <p><i>Explanation</i>:
+        The time graph shows how the different metrics have changed over time. For example, the Population in Cook County has increased steadily since 2010 to 2017, with a small dip in 2016. Also, the Median Home Value has generally decreased since 2010, with a small increase since 2015. Even though the median income has increased over time (from ~54k to over 58k), this may not necessarily translate to an increase in disposable income for homeowners, as the median home value in 2017 was $227.5K.  The general rule-of-thumb on the street (pun intended) is that home value should be no more than 3-4 times of people’s total annual income. 
+        </p>
+   </div>
 
   <div class="col-md-12">
-    <p>place holder  (col-lg-12)</p>
   </div>   
 
   <!-- <div class="col-md-4">
@@ -316,7 +350,7 @@
 
 </body>
   <!-- <script src="https://cdn.plot.ly/plotly-1.31.2.min.js"></script> -->
-
+  <script src="{{ url_for('static', filename='js/config.js') }}"></script>
   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
   integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
   crossorigin=""></script>
@@ -326,7 +360,6 @@
   <script src="{{ url_for('static', filename='js/bubbleapp.js') }}"></script>
   <script src="{{ url_for('static', filename='js/timegraph.js') }}"></script>
   <script src="{{ url_for('static', filename='js/summary_card.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/config.js') }}"></script>
   <script src="{{ url_for('static', filename='js/county_geojson.js') }}"></script>
   <script src="{{ url_for('static', filename='js/map.js') }}"></script>
 <!-- random D3 stuff -->
