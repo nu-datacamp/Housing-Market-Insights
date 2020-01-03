@@ -17,49 +17,6 @@ var loopThroughYear = false
 
 
 //*******************************************************************************************
-//  FRIENDLY NAME CONVERTER
-//  Converts database SQL column names to friendly syntax for users
-//*******************************************************************************************
-
-function friendlyName(i){
-  if (i == "total_housing_units") {
-    return "Total Housing Units";
-  }
-  else if (i == "total_housing_units_occupied") {
-    return  "Total Housing Units (Occupied)";
-  }
-  else if (i == "median_rooms") {
-    return  "Median Rooms";
-  }
-  else if (i == "owner_occupied_units") {
-    return  "Owner Occupied Units";
-  }
-  else if (i == "renter_occupied_units") {
-    return  "Renter Occupied Units";
-  }
-  else if (i == "median_home_value") {
-    return  "Median Home Value";
-  }
-  else if (i == "median_home_sales_zillow") {
-    return  "Median Home Sales Price";
-  }
-  else if (i == "median_rent") {
-    return  "Median Rent";
-  }
-  else if (i == "monthly_cost_with_mortgage") {
-    return  "Monthly Cost - With Mortgage";
-  }
-  else if (i == "monthly_cost_no_mortgage") {
-    return  "Monthly Cost - No Mortgage";
-  }
-  else if (i == "median_income") {
-    return  "Median Income";
-  }
-}
-
-
-
-//*******************************************************************************************
 //  COUNTY_STATE CONVERTER
 //  Converts from format "Cook County, Illinois" to "Cook County_Illinois" as an example
 //*******************************************************************************************
@@ -263,7 +220,7 @@ function buildBubbleChart(year, x, y) {
       }
     ];
 
-    Plotly.newPlot("bubble", bubbleData, bubbleLayout).then  // then handles the year over year view
+    Plotly.newPlot("bubble", bubbleData, bubbleLayout, {responsive: true}).then  // then handles the year over year view
     if (loopThroughYear === true && selectedYear < 2017){
       selectedYear = selectedYear + 1;
       sleep(300);
