@@ -16,7 +16,7 @@ After the separate datasets were cleaned, all files were consolidated into a sin
 
 ### Load
 
-Using a [Python script](https://github.com/nu-datacamp/Housing-Market-Insights/blob/master/csv-to-sqlite.ipynb), the combined CSV file was converted to a SQLITE database: "housing_db." The table included a row per county per year from 2010-2017. 
+Using a [Python script](https://github.com/nu-datacamp/Housing-Market-Insights/blob/master/csv-to-sqlite.ipynb), the combined CSV file was converted to a SQLITE database: "housing_db." The table included a row per county per year from 2010-2017. [DB Browser](https://sqlitebrowser.org/) was utilized for additional cleaning and reviewing the table.
 
 ### Web App
 With the SQLITE database, a Flask Python script was utilized as the basis for the web app. The Leaflet Javascript library was used for dynamic map overlays based on a variety of housing and economic factors, while Lodash was used to improve the responsiveness of the on-screen filters. Plotly was used for dot charts, bubble charts, and a time graph. Click events were utilized to tie together the different charts based on selected counties and variables.
@@ -27,3 +27,4 @@ With the SQLITE database, a Flask Python script was utilized as the basis for th
 * https://lodash.com
 * https://plot.ly/javascript/
 * https://www.zillow.com/
+* https://sqlitebrowser.org/
