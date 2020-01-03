@@ -8,7 +8,7 @@ Housing, income and population datasets were downloaded from the U.S. Census web
 
 ### Transformation
 
-For each dataset (housing, income, and population), all years were combined into a single file - either manually in Excel or via [Python scripts](https://github.com/nu-datacamp/Housing-Market-Insights/blob/master/Population%20Data/combine%20population%20csv.ipynb). The year values were put into separate columns in the combined files.
+For each dataset (home sales, housing, income, and population), all years were combined into a single file - either manually in Excel or via [Python scripts](https://github.com/nu-datacamp/Housing-Market-Insights/blob/master/Population%20Data/combine%20population%20csv.ipynb). The year values were put into separate columns in the combined files.
 
 Next, the datasets were trimmed to only include the attributes relevant to the web-based app. In examining the data, discrepancies were noted in the labels across years and work was done in Excel to consolidate the data. 
 
