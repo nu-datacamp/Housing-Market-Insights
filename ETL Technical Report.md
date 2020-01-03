@@ -4,7 +4,7 @@ The goal of this project was to explore housing market trends across all countie
 
 ### Extraction
 
-Housing, income and population datasets were downloaded from the U.S. Census website. Files were downloaded individually for every year from 2010 to 2017. 
+Housing, income and population datasets were downloaded from the U.S. Census website. Files were downloaded individually for every year from 2010 to 2017. Home sales information was extracted from Zillow.
 
 ### Transformation
 
@@ -26,3 +26,4 @@ With the SQLITE database, a Flask Python script was utilized as the basis for th
 * https://leafletjs.com/
 * https://lodash.com
 * https://plot.ly/javascript/
+* https://www.zillow.com/
