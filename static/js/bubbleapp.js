@@ -299,6 +299,12 @@ function newYearBubble(new_year){
 //  HANDLES REQUESTS FOR STATES
 //  changes the state view status and rebuilds the chart for all, isolate, or highlighted states
 //***********************************************************************************************
+document.getElementById('stateSelector').onkeydown = function(event) {
+  if (event.keyCode === 13) {
+      event.preventDefault();
+  stateHighlight()
+  }
+}
 
 function stateIsolate(){
   stateView = "isolate"
