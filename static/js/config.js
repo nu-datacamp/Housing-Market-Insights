@@ -1,5 +1,5 @@
 // API key
-const API_KEY = "pk.eyJ1IjoiZGFtdWRqZTkxIiwiYSI6ImNrM3RlZzBveTAyMWgzZW4yMmhqdm5iNm4ifQ.hq8K8gwIF5QKuQJFaMyaiA"
+const API_KEY = "pk.eyJ1IjoiZGFtdWRqZTkxIiwiYSI6ImNrM3Rld3hlcDAyNm8zbXFsdnJ3M2F5MGMifQ.WVZKs3Ya5luN4GvVc4Z2jA"
 
 //*******************************************************************************************
 //  FRIENDLY NAME CONVERTER
