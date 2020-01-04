@@ -1,4 +1,6 @@
-### <a href="http://housing-markets.herokuapp.com/" target="_blank">Click here to view Heroku app</a>
+
+### <a href="http://housing-markets.herokuapp.com/" target="_blank">Click here to view the Heroku app</a>
+
 
 # ETL Project Technical Report
 
