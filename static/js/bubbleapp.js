@@ -149,7 +149,7 @@ function buildBubbleChart(year, x, y) {
       hovermode: "closest",
       //automargin: true,
       height: 450,
-      //width: 945,
+      width: 825,
       showlegend: true,
       legend: {
         //bgcolor: "#f2f2f2",

@@ -123,6 +123,7 @@ function buildChart(county, var1, var2, var3) {
       },
       showlegend: true,
       height: 325,
+      width: 825,
       legend: {
         "orientation": "h",
         x: 0.05,
