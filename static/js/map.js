@@ -8,8 +8,8 @@ var mapInterval;
 mapLayersDict = {};
 var mapDefaultStyle;
 var mapHighlightStyle = {
-  color : '#774947',
-  weight : 1.8,
+  color : 'coral',
+  weight : 2.5,
 };
 var mapSelectedCounty;
 var myMap;
