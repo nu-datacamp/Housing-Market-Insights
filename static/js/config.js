@@ -40,4 +40,7 @@ function friendlyName(i){
     else if (i == "median_income") {
       return  "Median Income";
     }
+    else if (i == "population") {
+      return  "Population";
+    }
   }
