@@ -163,8 +163,8 @@
         <div class="col-lg-8">
           <br>
           <br>
-          <p>The <b>bubble plot</b> and <b>time graph</b> below show how the different metrics correlate with each other, and how they trend over time. Select a year of interest or click on the <b>Play Over Time</b> button to see how the pattern changes over time. 
-            The current county on the map is highlighted in orange. Mouse-over individual bubbles to see the county name, state, median income and median home value. 
+          <p>The <b>bubble plot</b> and <b>time graph</b> below show how the different metrics correlate with each other, and how they trend over time. Select a year of interest or click on the <b>Play</b> button to see how the pattern changes over time. 
+            The current county on the map is highlighted in orange. Mouse-over individual bubbles to see the county name, state, and selected variables. 
             To find out more about a bubble/county, click on it to update the time graph and summary card. The map will also update to show where the county is.
             </p>
           <br>
@@ -218,8 +218,8 @@
                 </li>
               </ul>
             </div>
-            <button id="stateHighlight-btn" type="button" class="btn btn-primary" style="background-color:rgb(252, 189, 134); color:black; border:transparent" onclick="stateHighlight()"> Highlight State </button>
-            <button id="stateIsolate-btn" type="button" class="btn btn-primary"  style="background-color:rgb(252, 189, 134); color:black; border:transparent" onclick="stateIsolate()"> Isolate State </button>
+            <button id="stateHighlight-btn" type="button" class="btn btn-primary" style="background-color:rgb(252, 189, 134); color:black; border:transparent" onclick="stateHighlight()"> Highlight</button>
+            <button id="stateIsolate-btn" type="button" class="btn btn-primary"  style="background-color:rgb(252, 189, 134); color:black; border:transparent" onclick="stateIsolate()"> Isolate </button>
             <hr>
             <button id="stateAll-btn" type="button" class="btn btn-primary"  style="background-color:black; color:white; border:transparent" onclick="stateAll()">Show All States </button>
           </form>
@@ -246,7 +246,7 @@
       Use the <b>State Filters</b>, type in a state name, hit enter or click on either <b>Highlight</b> or <b>Isolate</b> counties from a specific state. Click on the <b>Show All States</b> button to reset to default view.
       </p>
     <p> </p>
-    <p>Use the pull down menu on the left to select any combination of variables that you are interested in. Variable 1 and 2 are used in both the bubble plot and the time graph.</p>
+    <p>Use the filters on the left to select any combination of variables that you are interested in. Variable 1 and 2 are used in both the bubble plot and the time graph.</p>
     <p> </p>
     <p><i>Explanation</i>:
       The bubble plot shows how the different metrics correlate with each other.The size of the bubble corresponds to the population of the county. The bigger the circle, the more people live in that county. For example, the default highlighted bubble (Cook County) has a Median Income around 60K, with a Median Home Value of around 0.2Million, or $200,000 dollars. Cook County is also one of the relatively larger bubbles, which means it’s one of the more densely-populated counties.
@@ -278,7 +278,7 @@
   <div class="col-md-3">
     <h4><u>Time Graph</u></h4>
     <p><i>How to use:</i>
-      Select metrics of interest using the <b>drop-down menu</b> on the left. The colors of the menu correspond to the line colors on the graph. <b>Mouse-over</b> the graph to see the values at different years, from 2010 to 2017. Click on any metrics listed in the legend to make it disappear or reappear on the graph. The y-axes represent the values corresponding to each trend line of the same color.
+      Select metrics of interest using the <b>filters</b> on the left. <b>Mouse-over</b> the graph to see the values at different years, from 2010 to 2017. Click on any metrics listed in the legend to make it disappear or reappear on the graph. The y-axes represent the values corresponding to each trend line of the same color.
       </p>
     <p> </p>
     <p><i>Explanation</i>:
