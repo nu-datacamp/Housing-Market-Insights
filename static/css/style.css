@@ -174,4 +174,8 @@ html {
     z-index: 99999;
     border-radius: 4px;
   }
+    
+  .spacing {
+    display: none;
+  }
 }
