@@ -291,7 +291,9 @@ function newYearBubble(new_year){
   selectedYear = new_year
   console.log(`${selectedYear} is the new year selection`);
   buildBubbleChart(selectedYear, selected_xAxis, selected_yAxis);
-  MapApiCall(selected_yAxis, selectedYear)
+  MapApiCall(selected_yAxis, selectedYear); 
+  county_select(selectedGeo);  // updates card
+
 }
 
 
